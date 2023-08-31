@@ -1,1 +1,3 @@
-# sample-app
+# React SaaS Template
+
+a SaaS application.
