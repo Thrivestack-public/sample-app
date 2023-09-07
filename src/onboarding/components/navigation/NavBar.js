@@ -17,11 +17,17 @@ const styles = (theme) => ({
     fontWeight: theme.typography.h6.fontWeight,
   },
   brandText: {
-    fontFamily: "'Baloo Bhaijaan', cursive",
-    fontWeight: 400,
+    color: "black",
+    fontWeight: 600,
+    fontSize: "16px",
   },
   noDecoration: {
     textDecoration: "none !important",
+  },
+  iconWrapper: {
+    display: "flex",
+    alignItems: "center",
+    gap: "4px",
   },
 });
 
@@ -31,22 +37,14 @@ function NavBar(props) {
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <div>
+          <div className={classes.iconWrapper}>
+            <img src="/favicon-192x192.png" alt="icon" height={30} width={30} />
             <Typography
-              variant="h4"
-              className={classes.brandText}
               display="inline"
               color="primary"
-            >
-              Sample
-            </Typography>
-            <Typography
-              variant="h4"
               className={classes.brandText}
-              display="inline"
-              color="secondary"
             >
-              Saas
+              BookMyCalender
             </Typography>
           </div>
         </Toolbar>

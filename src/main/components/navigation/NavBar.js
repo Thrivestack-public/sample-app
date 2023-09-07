@@ -101,13 +101,19 @@ const styles = (theme) => ({
   mobileItemSelected: {
     backgroundColor: `${theme.palette.primary.main} !important`,
   },
-  brandText: {
-    fontFamily: "'Baloo Bhaijaan', cursive",
-    fontWeight: 400,
-  },
   username: {
     paddingLeft: 0,
     paddingRight: theme.spacing(2),
+  },
+  brandText: {
+    color: "black",
+    fontWeight: 600,
+    fontSize: "16px",
+  },
+  iconWrapper: {
+    display: "flex",
+    alignItems: "center",
+    gap: "4px",
   },
   justifyCenter: {
     justifyContent: "center",
@@ -133,7 +139,6 @@ function NavBar(props) {
   const closeMobileDrawer = useCallback(() => {
     setIsMobileOpen(false);
   }, [setIsMobileOpen]);
-
 
   const menuItems = [
     {
@@ -181,22 +186,21 @@ function NavBar(props) {
               </Box>
             </Hidden>
             <Hidden smDown>
-              <Typography
-                variant="h4"
-                className={classes.brandText}
-                display="inline"
-                color="primary"
-              >
-                Sample
-              </Typography>
-              <Typography
-                variant="h4"
-                className={classes.brandText}
-                display="inline"
-                color="secondary"
-              >
-                Saas
-              </Typography>
+              <div className={classes.iconWrapper}>
+                <img
+                  src="/favicon-192x192.png"
+                  alt="icon"
+                  height={30}
+                  width={30}
+                />
+                <Typography
+                  display="inline"
+                  color="primary"
+                  className={classes.brandText}
+                >
+                  BookMyCalender
+                </Typography>
+              </div>
             </Hidden>
           </Box>
           <Box
@@ -227,7 +231,7 @@ function NavBar(props) {
         </Toolbar>
       </AppBar>
       <Hidden smDown>
-        <Drawer 
+        <Drawer
           variant="permanent"
           classes={{
             paper: classes.drawerPaper,

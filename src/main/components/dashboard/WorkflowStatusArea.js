@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@mui/material";
 // import CancelIcon from "@mui/icons-material/Cancel";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -14,6 +14,33 @@ function WorkflowStatusArea(props) {
   const { theme } = props;
   const width = useWidth();
   const isWidthUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const [userData, setUserData] = useState({});
+  const userMetaDataStr = localStorage.getItem("userMetaData");
+  // const userMetaData = userMetaDataStr ? JSON.parse(userMetaDataStr) : {};
+
+  const userMetaData = {
+    userId: "1234",
+    workflowId: "648b79b3-2d7b-4baf-81b6-c52215f52349",
+  };
+
+  const getUserData = async () => {
+    const res = await fetch(
+      `https://gekzy1vnk3.execute-api.us-east-1.amazonaws.com/default/saasbox-dev-thrivestack-lambda-function-ef05c78b?userId=${userMetaData.userId}&workflowId=${userMetaData.workflowId}`
+    )
+      .then((res) => res.json())
+      .catch((error) => {
+        console.log("something went wrong");
+      });
+
+    console.log("response res", res);
+    setUserData(res.data);
+  };
+  useEffect(() => {
+    if (userMetaData.userId && userMetaData.workflowId) {
+      console.log("hellooo");
+      getUserData();
+    }
+  }, []);
 
   const data = [
     {
@@ -26,9 +53,9 @@ function WorkflowStatusArea(props) {
         key1: "value1",
         key2: "value2",
         key3: {
-          key4: "value4"
-        }
-      }
+          key4: "value4",
+        },
+      },
     },
     {
       color: "#00C853",
@@ -40,11 +67,11 @@ function WorkflowStatusArea(props) {
         key1: "value1",
         key2: "value2",
         key3: {
-          key4: "value4"
-        }
-      }
+          key4: "value4",
+        },
+      },
     },
-     {
+    {
       color: "#00C853",
       icon: <CheckCircle style={{ fontSize: iconSize }} />,
       step: "Associate App Role",
@@ -54,11 +81,11 @@ function WorkflowStatusArea(props) {
         key1: "value1",
         key2: "value2",
         key3: {
-          key4: "value4"
-        }
-      }
+          key4: "value4",
+        },
+      },
     },
-     {
+    {
       color: "#00C853",
       icon: <CheckCircle style={{ fontSize: iconSize }} />,
       step: "Associate App Pricing",
@@ -68,17 +95,17 @@ function WorkflowStatusArea(props) {
         key1: "value1",
         key2: "value2",
         key3: {
-          key4: "value4"
-        }
-      }
+          key4: "value4",
+        },
+      },
     },
   ];
 
   return (
     <div>
       <div className="container-fluid">
-        <Typography variant="h3" align="center" className="lg-mg-bottom">
-          Features
+        <Typography variant="h4" align="center" className="lg-mg-bottom">
+          User Details
         </Typography>
         <div className="container-fluid">
           <Grid container spacing={calculateSpacing(width, theme)}>

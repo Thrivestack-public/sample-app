@@ -133,7 +133,7 @@ const OrganizationOnboardingForm = (props) => {
           fullWidth
         />
         <FormControl fullWidth>
-          <InputLabel>Organization Type</InputLabel>
+          <InputLabel>Organization Type *</InputLabel>
           <Select
             label="Organization Type"
             name="orgType"
@@ -149,7 +149,7 @@ const OrganizationOnboardingForm = (props) => {
           </Select>
         </FormControl>
         <FormControl fullWidth>
-          <InputLabel>Industry</InputLabel>
+          <InputLabel>Industry *</InputLabel>
           <Select
             label="Industry"
             name="industry"
