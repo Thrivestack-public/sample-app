@@ -103,7 +103,9 @@ const OrganizationOnboardingForm = (props) => {
             window.location.href =
               onboardingMetaData.returnUrl +
               "&workflowId=" +
-              onboardingMetaData.workflowId;
+              onboardingMetaData.workflowId +
+              "&runtimeId=" +
+              onboardingMetaData.runtimeId;
           }, 500);
         } else {
           console.error("Submission failed");
