@@ -26,7 +26,7 @@ function Main(props) {
 
   const selectHome = useCallback(() => {
     smoothScrollTop();
-    document.title = "BookMyCalender";
+    document.title = "SaaSBox";
     setSelectedTab("Home");
   }, [setSelectedTab]);
 

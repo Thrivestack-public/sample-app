@@ -198,7 +198,7 @@ function NavBar(props) {
                   color="primary"
                   className={classes.brandText}
                 >
-                  BookMyCalender
+                  SaaSBox
                 </Typography>
               </div>
             </Hidden>

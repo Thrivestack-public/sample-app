@@ -114,9 +114,7 @@ function FormSection(props) {
                     height="100%"
                   >
                     <Box mb={4} textAlign={"center"}>
-                      <Typography variant={"h4"}>
-                        Welcome To BookMyCalender
-                      </Typography>
+                      <Typography variant={"h4"}>Welcome To SaaSBox</Typography>
                       <Typography variant="p" fontSize={"12px"} mt={"12px"}>
                         Please enter the following details to complete the
                         process.
