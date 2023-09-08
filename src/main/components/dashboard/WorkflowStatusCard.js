@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import { Button } from "@mui/material";
 import WorkflowDataDrawer from "./WorkflowDataDrawer";
+import { Cancel, CheckCircle } from "@mui/icons-material";
 
 const styles = (theme) => ({
   iconWrapper: {
@@ -17,6 +18,7 @@ const styles = (theme) => ({
     padding: theme.spacing(1) * 1.5,
   },
 });
+const iconSize = 30;
 
 function shadeColor(hex, percent) {
   const f = parseInt(hex.slice(1), 16);
@@ -41,7 +43,7 @@ function shadeColor(hex, percent) {
 }
 
 function WorkflowStatusCard(props) {
-  const { classes, Icon, color, headline, text, data, status } = props;
+  const { classes, headline, text, data, status } = props;
 
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
   const openDrawer = useCallback(() => {
@@ -51,19 +53,24 @@ function WorkflowStatusCard(props) {
   const closeDrawer = useCallback(() => {
     setIsSideDrawerOpen(false);
   }, [setIsSideDrawerOpen]);
+  const color = status === "done" ? "#00C853" : "#DC2626";
   return (
     <Fragment>
       <div
         // We will set color and fill here, due to some prios complications
         className={classes.iconWrapper}
         style={{
-          color: color,
+          color: "white",
           backgroundColor: shadeColor(color, 0.5),
           fill: color,
           padding: 12,
         }}
       >
-        {Icon}
+        {status === "done" ? (
+          <CheckCircle style={{ fontSize: iconSize }} />
+        ) : (
+          <Cancel style={{ fontSize: iconSize }} />
+        )}
       </div>
       <Typography variant="h5" paragraph>
         {headline}
@@ -75,7 +82,14 @@ function WorkflowStatusCard(props) {
         {text}
       </Typography>
 
-      <Button variant="outlined" onClick={openDrawer} sx={{mt:2}}>Show Data</Button>
+      <Button
+        variant="outlined"
+        size="small"
+        onClick={openDrawer}
+        sx={{ mt: 2 }}
+      >
+        Show Data
+      </Button>
 
       <WorkflowDataDrawer
         title={headline}
@@ -89,8 +103,6 @@ function WorkflowStatusCard(props) {
 
 WorkflowStatusCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  Icon: PropTypes.element.isRequired,
-  color: PropTypes.string.isRequired,
   headline: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,

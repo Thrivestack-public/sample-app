@@ -4,100 +4,82 @@ import { Grid, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { withTheme } from "@mui/styles";
 import useWidth from "../../../shared/functions/useWidth";
-import CheckCircle from "@mui/icons-material/CheckCircle";
 import WorkflowStatusCard from "./WorkflowStatusCard";
 import calculateSpacing from "./calculateSpacing";
-
-const iconSize = 30;
+import { onboardingApiUrl, thriveDataApiUrl } from "../../../constants";
 
 function WorkflowStatusArea(props) {
   const { theme } = props;
   const width = useWidth();
   const isWidthUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const [userData, setUserData] = useState({});
+  const [userOnboardingData, setUserOnboardingData] = useState({});
   const userMetaDataStr = localStorage.getItem("userMetaData");
-  // const userMetaData = userMetaDataStr ? JSON.parse(userMetaDataStr) : {};
-
-  const userMetaData = {
-    userId: "1234",
-    workflowId: "648b79b3-2d7b-4baf-81b6-c52215f52349",
-  };
+  const userMetaData = userMetaDataStr ? JSON.parse(userMetaDataStr) : {};
 
   const getUserData = async () => {
     const res = await fetch(
-      `https://gekzy1vnk3.execute-api.us-east-1.amazonaws.com/default/saasbox-dev-thrivestack-lambda-function-ef05c78b?userId=${userMetaData.userId}&workflowId=${userMetaData.workflowId}`
+      `${thriveDataApiUrl}?userId=${userMetaData.userId}&workflowId=${userMetaData.workflowId}`,
+      {
+        headers: {
+          authorization: localStorage.getItem("system_token"),
+        },
+      }
     )
       .then((res) => res.json())
       .catch((error) => {
         console.log("something went wrong");
       });
-
+    const isOnboardingDataReceived = res.data && res.data.onboardingData;
+    if (!isOnboardingDataReceived) {
+      const onboardingRes = await fetch(
+        `${onboardingApiUrl}/getdata?userId=${userMetaData.userId}&workflowId=${userMetaData.workflowId}`,
+        {
+          headers: {
+            authorization: localStorage.getItem("system_token"),
+          },
+        }
+      )
+        .then((res) => res.json())
+        .catch((error) => {
+          console.log("something went wrong");
+        });
+      setUserOnboardingData(onboardingRes.data);
+    }
     console.log("response res", res);
     setUserData(res.data);
   };
   useEffect(() => {
     if (userMetaData.userId && userMetaData.workflowId) {
-      console.log("hellooo");
+      console.log("getUserData");
       getUserData();
     }
   }, []);
 
   const data = [
     {
-      color: "#00C853",
-      icon: <CheckCircle style={{ fontSize: iconSize }} />,
       step: "Onboarding",
-      status: "done",
+      status: userData.onboardingData ? "done" : "not done",
       text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-      data: {
-        key1: "value1",
-        key2: "value2",
-        key3: {
-          key4: "value4",
-        },
-      },
+      data: userData.onboardingData || userOnboardingData || {},
     },
     {
-      color: "#00C853",
-      icon: <CheckCircle style={{ fontSize: iconSize }} />,
       step: "User Enrichment",
-      status: "done",
+      status: userData.userEnrichmentData ? "done" : "not done",
       text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-      data: {
-        key1: "value1",
-        key2: "value2",
-        key3: {
-          key4: "value4",
-        },
-      },
+      data: userData.userEnrichmentData || {},
     },
     {
-      color: "#00C853",
-      icon: <CheckCircle style={{ fontSize: iconSize }} />,
       step: "Associate App Role",
-      status: "done",
+      status: userData.appRoleData ? "done" : "not done",
       text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-      data: {
-        key1: "value1",
-        key2: "value2",
-        key3: {
-          key4: "value4",
-        },
-      },
+      data: userData.appRoleData || {},
     },
     {
-      color: "#00C853",
-      icon: <CheckCircle style={{ fontSize: iconSize }} />,
       step: "Associate App Pricing",
-      status: "done",
+      status: userData.appPricingData ? "done" : "not done",
       text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-      data: {
-        key1: "value1",
-        key2: "value2",
-        key3: {
-          key4: "value4",
-        },
-      },
+      data: userData.appPricingData || {},
     },
   ];
 
