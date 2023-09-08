@@ -12,6 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
+import { onboardingApiUrl } from "../../../constants";
 
 const styles = (theme) => ({
   formContainer: {
@@ -83,16 +84,13 @@ const OrganizationOnboardingForm = (props) => {
     if (validateForm()) {
       console.log(formData);
       try {
-        const response = await fetch(
-          "https://onboardingtempbackend.rushi173.repl.co/api/submit",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...formData, ...onboardingMetaData }),
-          }
-        );
+        const response = await fetch(`${onboardingApiUrl}/submit`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, ...onboardingMetaData }),
+        });
 
         if (response.ok) {
           console.log("Data submitted successfully");
