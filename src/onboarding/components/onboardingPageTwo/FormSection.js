@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Typography, Card, Box } from "@mui/material";
+import { Grid, Typography, Card, Box, Divider } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
 import StepStatusCard from "../StepStatusCard/StepStatusCard";
@@ -53,6 +53,16 @@ const styles = (theme) => ({
     },
     [theme.breakpoints.down("md")]: {
       marginBottom: theme.spacing(3),
+    },
+  },
+  stepText: {
+    fontWeight: 500,
+    fontSize: "16px",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "14px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "12px",
     },
   },
   containerFix: {
@@ -145,26 +155,31 @@ function FormSection(props) {
                   <br />
                   <br />
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    Behind the scene Thrive has already completed the following
-                    steps -
+                    Once you submit ThriveStack will proceed to complete the
+                    following steps -
                   </Typography>
-                  <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    flexDirection={"column"}
-                  >
-                    <StepStatusCard label="Authentication" status="done" />
-                    <StepStatusCard
-                      label="User Surge Check (Waitlist)"
-                      status="done"
-                    />
-                  </Box>
+                  <br />
+                  <Typography className={classes.stepText}>
+                    Enrichment
+                  </Typography>
+                  <br />
+                  <Typography className={classes.stepText}>
+                    Associate App Role
+                  </Typography>
+                  <br />
+                  <Typography className={classes.stepText}>
+                    Associate App Pricing
+                  </Typography>
+                  <br />
+                  <Typography className={classes.stepText}>
+                    Tenant Creation Request
+                  </Typography>
                 </Box>
+                <Divider />
 
-                <Box>
+                <Box mt={2}>
                   <Typography className={classes.formTitle}>
-                    Onboarding Form
+                    Onboarding Form - Step 2
                   </Typography>
                   <OrganizationOnboardingForm onboardingMetaData={metadata} />
                 </Box>

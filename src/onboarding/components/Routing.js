@@ -1,22 +1,21 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
 import PropsRoute from "../../shared/components/PropsRoute";
 import Home from "./home/Home";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
+import OnboardingPageOne from "./onboardingPageOne/OnboardingPageOne";
+import OnboardingPageTwo from "./onboardingPageTwo/OnboardingPageTwo";
 
 function Routing(props) {
-  const { selectHome } = props;
   useLocationBlocker();
   return (
     <Switch>
-      <PropsRoute path="/" component={Home} selectHome={selectHome} />
+      <PropsRoute path="/onboarding/pageTwo" component={OnboardingPageTwo} />
+      <PropsRoute path="/" component={OnboardingPageOne} />
     </Switch>
   );
 }
 
-Routing.propTypes = {
-  selectHome: PropTypes.func.isRequired,
-};
+Routing.propTypes = {};
 
 export default memo(Routing);

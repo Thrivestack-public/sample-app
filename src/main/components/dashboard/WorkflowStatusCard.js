@@ -54,6 +54,8 @@ function WorkflowStatusCard(props) {
     setIsSideDrawerOpen(false);
   }, [setIsSideDrawerOpen]);
   const color = status === "done" ? "#00C853" : "#DC2626";
+
+  // return <div></div>;
   return (
     <Fragment>
       <div

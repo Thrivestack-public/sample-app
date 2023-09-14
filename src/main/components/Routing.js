@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
-import withStyles from '@mui/styles/withStyles';
+import withStyles from "@mui/styles/withStyles";
 import Dashboard from "./dashboard/Dashboard";
 import PropsRoute from "../../shared/components/PropsRoute";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
@@ -42,19 +42,12 @@ const styles = (theme) => ({
 });
 
 function Routing(props) {
-  const {
-    classes,
-    selectDashboard,
-  } = props;
+  const { classes } = props;
   useLocationBlocker();
   return (
     <div className={classes.wrapper}>
       <Switch>
-        <PropsRoute
-          path=""
-          component={Dashboard}
-          selectDashboard={selectDashboard}
-        />
+        <PropsRoute path="" component={Dashboard} />
       </Switch>
     </div>
   );
@@ -62,7 +55,6 @@ function Routing(props) {
 
 Routing.propTypes = {
   classes: PropTypes.object.isRequired,
-  selectDashboard: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(memo(Routing));

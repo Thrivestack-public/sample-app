@@ -1,14 +1,7 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from "react";
 import WorkflowStatusArea from "./WorkflowStatusArea";
 
 function Dashboard(props) {
-  const {
-    selectDashboard
-  } = props;
-
-  useEffect(selectDashboard, [selectDashboard]);
-
   return (
     <Fragment>
       <WorkflowStatusArea />
@@ -16,8 +9,6 @@ function Dashboard(props) {
   );
 }
 
-Dashboard.propTypes = {
-  selectDashboard: PropTypes.func.isRequired,
-};
+Dashboard.propTypes = {};
 
 export default Dashboard;

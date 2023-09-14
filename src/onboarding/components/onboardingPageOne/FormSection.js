@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Typography, Card, Box } from "@mui/material";
+import { Grid, Typography, Card, Box, Divider } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
 import StepStatusCard from "../StepStatusCard/StepStatusCard";
@@ -60,14 +60,6 @@ const styles = (theme) => ({
       maxWidth: "none !important",
     },
   },
-  statusCard: {
-    width: "100%",
-    maxWidth: "500px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    padding: "8px 16px",
-    margin: "24px",
-  },
   formTitle: {
     fontWeight: 600,
     fontSize: "24px",
@@ -77,7 +69,7 @@ const styles = (theme) => ({
 });
 
 function FormSection(props) {
-  const { classes, theme } = props;
+  const { classes } = props;
 
   const [metadata, setMetadata] = useState({
     userId: "",
@@ -145,8 +137,8 @@ function FormSection(props) {
                   <br />
                   <br />
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    Behind the scene Thrive has already completed the following
-                    steps -
+                    Behind the scene ThriveStack has already completed the
+                    following steps -
                   </Typography>
                   <Box
                     display={"flex"}
@@ -162,9 +154,11 @@ function FormSection(props) {
                   </Box>
                 </Box>
 
-                <Box>
+                <Divider />
+
+                <Box mt={2}>
                   <Typography className={classes.formTitle}>
-                    Onboarding Form
+                    Onboarding Form - Step 1
                   </Typography>
                   <OrganizationOnboardingForm onboardingMetaData={metadata} />
                 </Box>
