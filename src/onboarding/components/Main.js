@@ -8,6 +8,7 @@ import CookieRulesDialog from "./cookies/CookieRulesDialog";
 import CookieConsent from "./cookies/CookieConsent";
 import Routing from "./Routing";
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
+import { OnboardingFormDataContextProvider } from "./onboardingFormDataContext/onboardingFormDataContext";
 
 AOS.init({ once: true });
 
@@ -48,23 +49,25 @@ function Main(props) {
 
   return (
     <div className={classes.wrapper}>
-      {!isCookieRulesDialogOpen && (
-        <CookieConsent
-          handleCookieRulesDialogOpen={handleCookieRulesDialogOpen}
+      <OnboardingFormDataContextProvider>
+        {!isCookieRulesDialogOpen && (
+          <CookieConsent
+            handleCookieRulesDialogOpen={handleCookieRulesDialogOpen}
+          />
+        )}
+        <CookieRulesDialog
+          open={isCookieRulesDialogOpen}
+          onClose={handleCookieRulesDialogClose}
         />
-      )}
-      <CookieRulesDialog
-        open={isCookieRulesDialogOpen}
-        onClose={handleCookieRulesDialogClose}
-      />
-      <NavBar
-        selectedTab={selectedTab}
-        selectTab={setSelectedTab}
-        mobileDrawerOpen={isMobileDrawerOpen}
-        handleMobileDrawerOpen={handleMobileDrawerOpen}
-        handleMobileDrawerClose={handleMobileDrawerClose}
-      />
-      <Routing selectHome={selectHome} />
+        <NavBar
+          selectedTab={selectedTab}
+          selectTab={setSelectedTab}
+          mobileDrawerOpen={isMobileDrawerOpen}
+          handleMobileDrawerOpen={handleMobileDrawerOpen}
+          handleMobileDrawerClose={handleMobileDrawerClose}
+        />
+        <Routing selectHome={selectHome} />
+      </OnboardingFormDataContextProvider>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import FormSection from "./FormSection";
 
-function Home(props) {
+function OnboardingPageTwo(props) {
   return (
     <Fragment>
       <FormSection />
@@ -9,6 +9,6 @@ function Home(props) {
   );
 }
 
-Home.propTypes = {};
+OnboardingPageTwo.propTypes = {};
 
-export default Home;
+export default OnboardingPageTwo;

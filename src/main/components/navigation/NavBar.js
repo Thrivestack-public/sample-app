@@ -209,7 +209,7 @@ function NavBar(props) {
             alignItems="center"
             width="100%"
           >
-            <ListItem
+            {/* <ListItem
               disableGutters
               className={classNames(classes.iconListItem, classes.smBordered)}
             >
@@ -226,70 +226,10 @@ function NavBar(props) {
                   }
                 />
               )}
-            </ListItem>
+            </ListItem> */}
           </Box>
         </Toolbar>
       </AppBar>
-      <Hidden smDown>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          open={false}
-        >
-          <List>
-            {menuItems.map((element, index) => (
-              <Link
-                to={element.link}
-                className={classes.menuLink}
-                onClick={element.onClick}
-                key={index}
-                ref={(node) => {
-                  links.current[index] = node;
-                }}
-              >
-                <Tooltip
-                  title={element.name}
-                  placement="right"
-                  key={element.name}
-                >
-                  <ListItem
-                    selected={selectedTab === element.name}
-                    button
-                    divider={index !== menuItems.length - 1}
-                    className={classes.permanentDrawerListItem}
-                    onClick={() => {
-                      links.current[index].click();
-                    }}
-                    aria-label={
-                      element.name === "Logout"
-                        ? "Logout"
-                        : `Go to ${element.name}`
-                    }
-                  >
-                    <ListItemIcon className={classes.justifyCenter}>
-                      {element.icon.desktop}
-                    </ListItemIcon>
-                  </ListItem>
-                </Tooltip>
-              </Link>
-            ))}
-          </List>
-        </Drawer>
-      </Hidden>
-      <NavigationDrawer
-        menuItems={menuItems.map((element) => ({
-          link: element.link,
-          name: element.name,
-          icon: element.icon.mobile,
-          onClick: element.onClick,
-        }))}
-        anchor="left"
-        open={isMobileOpen}
-        selectedItem={selectedTab}
-        onClose={closeMobileDrawer}
-      />
     </Fragment>
   );
 }

@@ -23,13 +23,7 @@ const styles = {
 function DataDrawer(props) {
   const { classes, onClose, open, title, data } = props;
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      variant="temporary"
-      onClose={onClose}
-      sx={{ minWidth: "40%" }}
-    >
+    <Drawer anchor="right" open={open} variant="temporary" onClose={onClose}>
       <Toolbar disableGutters className={classes.toolbar}>
         <Box
           pl={3}
@@ -51,11 +45,15 @@ function DataDrawer(props) {
         </Box>
       </Toolbar>
       <Divider />
-      <Box p="20px">
+      <Box p="20px" minWidth={["200px", "400px"]}>
         <Typography variant="body1">Data :</Typography>
 
         {data ? (
-          <JSONTree hideRoot data={data} />
+          <JSONTree
+            hideRoot
+            data={data}
+            shouldExpandNodeInitially={() => true}
+          />
         ) : (
           <Typography variant="body1" color="textSecondary">
             No Data Available

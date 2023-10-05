@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Typography, Card, Box } from "@mui/material";
+import { Grid, Typography, Card, Box, Divider } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
 import StepStatusCard from "../StepStatusCard/StepStatusCard";
@@ -55,6 +55,16 @@ const styles = (theme) => ({
       marginBottom: theme.spacing(3),
     },
   },
+  stepText: {
+    fontWeight: 500,
+    fontSize: "16px",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "14px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "12px",
+    },
+  },
   containerFix: {
     [theme.breakpoints.up("md")]: {
       maxWidth: "none !important",
@@ -78,36 +88,6 @@ const styles = (theme) => ({
 
 function FormSection(props) {
   const { classes, theme } = props;
-
-  const [metadata, setMetadata] = useState({
-    userId: "",
-    workflowId: "",
-    runtimeId: "",
-    returnUrl: "",
-    env: "",
-  });
-
-  useEffect(() => {
-    // Check if metadata is in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const metadataFromUrl = {
-      userId: urlParams.get("userId"),
-      workflowId: urlParams.get("workflowId"),
-      runtimeId: urlParams.get("runtimeId"),
-      returnUrl: urlParams.get("returnUrl"),
-      env: urlParams.get("env"),
-    };
-    setMetadata(metadataFromUrl);
-    localStorage.setItem(
-      "userMetaData",
-      JSON.stringify({
-        userId: metadataFromUrl.userId,
-        workflowId: metadataFromUrl.workflowId,
-        runtimeId: metadataFromUrl.runtimeId,
-        env: metadataFromUrl.env,
-      })
-    );
-  }, []);
 
   return (
     <div className={classNames("lg-p-top", classes.wrapper)}>
@@ -145,28 +125,31 @@ function FormSection(props) {
                   <br />
                   <br />
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    Behind the scene Thrive has already completed the following
-                    steps -
+                    Once you submit ThriveStack will proceed to complete the
+                    following steps -
                   </Typography>
-                  <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    flexDirection={"column"}
-                  >
-                    <StepStatusCard label="Authentication" status="done" />
-                    <StepStatusCard
-                      label="User Surge Check (Waitlist)"
-                      status="done"
-                    />
-                  </Box>
+                  <br />
+                  <br />
+                  <Typography className={classes.stepText}>
+                    Enrichment
+                  </Typography>
+                  <Typography className={classes.stepText}>
+                    Associate App Role
+                  </Typography>
+                  <Typography className={classes.stepText}>
+                    Associate App Pricing
+                  </Typography>
+                  <Typography className={classes.stepText}>
+                    Tenant Creation Request
+                  </Typography>
                 </Box>
+                <Divider />
 
-                <Box>
+                <Box mt={2}>
                   <Typography className={classes.formTitle}>
-                    Onboarding Form
+                    Onboarding Form - Step 2
                   </Typography>
-                  <OrganizationOnboardingForm onboardingMetaData={metadata} />
+                  <OrganizationOnboardingForm />
                 </Box>
               </Box>
             </Box>

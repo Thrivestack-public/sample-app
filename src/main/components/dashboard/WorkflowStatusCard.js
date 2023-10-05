@@ -43,7 +43,7 @@ function shadeColor(hex, percent) {
 }
 
 function WorkflowStatusCard(props) {
-  const { classes, headline, text, data, status } = props;
+  const { classes, headline, text, data, status, showDataBtn = true } = props;
 
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
   const openDrawer = useCallback(() => {
@@ -54,6 +54,8 @@ function WorkflowStatusCard(props) {
     setIsSideDrawerOpen(false);
   }, [setIsSideDrawerOpen]);
   const color = status === "done" ? "#00C853" : "#DC2626";
+
+  // return <div></div>;
   return (
     <Fragment>
       <div
@@ -81,22 +83,25 @@ function WorkflowStatusCard(props) {
       <Typography variant="body1" color="textSecondary">
         {text}
       </Typography>
+      {showDataBtn ? (
+        <>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={openDrawer}
+            sx={{ mt: 2 }}
+          >
+            Show Data
+          </Button>
 
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={openDrawer}
-        sx={{ mt: 2 }}
-      >
-        Show Data
-      </Button>
-
-      <WorkflowDataDrawer
-        title={headline}
-        data={data}
-        open={isSideDrawerOpen}
-        onClose={closeDrawer}
-      />
+          <WorkflowDataDrawer
+            title={headline}
+            data={data}
+            open={isSideDrawerOpen}
+            onClose={closeDrawer}
+          />
+        </>
+      ) : null}
     </Fragment>
   );
 }
@@ -107,6 +112,7 @@ WorkflowStatusCard.propTypes = {
   text: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   status: PropTypes.string.isRequired,
+  showDataBtn: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(WorkflowStatusCard);
