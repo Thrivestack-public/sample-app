@@ -49,7 +49,11 @@ function DataDrawer(props) {
         <Typography variant="body1">Data :</Typography>
 
         {data ? (
-          <JSONTree hideRoot data={data} />
+          <JSONTree
+            hideRoot
+            data={data}
+            shouldExpandNodeInitially={() => true}
+          />
         ) : (
           <Typography variant="body1" color="textSecondary">
             No Data Available

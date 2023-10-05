@@ -15,6 +15,14 @@ export const OnboardingFormDataContextProvider = ({ children }) => {
   };
   const [formData, setFormData] = useState(initialFormData);
 
+  const [metadata, setMetadata] = useState({
+    userId: "",
+    workflowId: "",
+    runtimeId: "",
+    returnUrl: "",
+    env: "",
+  });
+
   const resetForm = () => {
     setFormData(initialFormData);
   };
@@ -25,6 +33,8 @@ export const OnboardingFormDataContextProvider = ({ children }) => {
         formData,
         setFormData,
         resetForm,
+        onboardingMetaData: metadata,
+        setMetadata,
       }}
     >
       {children}

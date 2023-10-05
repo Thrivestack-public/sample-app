@@ -4,7 +4,9 @@ import classNames from "classnames";
 import { Grid, Typography, Card, Box, Divider } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
-import StepStatusCard from "../StepStatusCard/StepStatusCard";
+import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
+import WorkflowStatusCard from "../../../main/components/dashboard/WorkflowStatusCard";
+import StepStatusCard from "../../../main/components/StepStatusCard/StepStatusCard";
 
 const styles = (theme) => ({
   card: {
@@ -68,22 +70,18 @@ const styles = (theme) => ({
   },
 });
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 function FormSection(props) {
   const { classes } = props;
-
-  const [metadata, setMetadata] = useState({
-    userId: "",
-    workflowId: "",
-    runtimeId: "",
-    returnUrl: "",
-    env: "",
-  });
+  const { setMetadata } = useOnboardingFormData();
 
   useEffect(() => {
     // Check if metadata is in the URL
     const urlParams = new URLSearchParams(window.location.search);
     const metadataFromUrl = {
-      userId: urlParams.get("userId"),
+      userId: urlParams.get("userId") || getRandomInt(100),
       workflowId: urlParams.get("workflowId"),
       runtimeId: urlParams.get("runtimeId"),
       returnUrl: urlParams.get("returnUrl"),
@@ -97,10 +95,22 @@ function FormSection(props) {
         workflowId: metadataFromUrl.workflowId,
         runtimeId: metadataFromUrl.runtimeId,
         env: metadataFromUrl.env,
+        postOnboardingReturnUrl: metadataFromUrl.returnUrl,
       })
     );
   }, []);
-
+  const data = [
+    {
+      step: "1. Authentication Token",
+      status: "done",
+      text: "Thrivestack has done authentication through your authentication provider and securely stored the authentication token in cookies at the domain level.",
+    },
+    {
+      step: "2. User Surge Check",
+      status: "done",
+      text: "ThriveStack has reviewed the user limit that you configured within the waitlist user node settings.",
+    },
+  ];
   return (
     <div className={classNames("lg-p-top", classes.wrapper)}>
       <div className={classNames("container-fluid", classes.container)}>
@@ -145,12 +155,20 @@ function FormSection(props) {
                     justifyContent={"center"}
                     alignItems={"center"}
                     flexDirection={"column"}
+                    gap={4}
+                    p={4}
+                    maxWidth={"600px"}
+                    margin={"auto"}
                   >
-                    <StepStatusCard label="Authentication" status="done" />
-                    <StepStatusCard
-                      label="User Surge Check (Waitlist)"
-                      status="done"
-                    />
+                    {data.map((element) => (
+                      <StepStatusCard
+                        label={element.step}
+                        status={element.status}
+                        isShowButtonVisible={false}
+                        data={element.data}
+                        text={element.text}
+                      />
+                    ))}
                   </Box>
                 </Box>
 
@@ -160,7 +178,7 @@ function FormSection(props) {
                   <Typography className={classes.formTitle}>
                     Onboarding Form - Step 1
                   </Typography>
-                  <OrganizationOnboardingForm onboardingMetaData={metadata} />
+                  <OrganizationOnboardingForm />
                 </Box>
               </Box>
             </Box>

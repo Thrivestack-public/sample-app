@@ -7,11 +7,11 @@ import WorkflowDataDrawer from "../dashboard/WorkflowDataDrawer";
 const styles = (theme) => ({
   statusCard: {
     width: "100%",
-    maxWidth: "500px",
+    // maxWidth: "500px",
     border: "1px solid #ddd",
     borderRadius: "8px",
     padding: "8px 16px",
-    margin: "12px 24px",
+    // margin: "12px 24px",
   },
 });
 
@@ -54,7 +54,9 @@ function StepStatusCard(props) {
             <Typography fontWeight={500} fontSize={"20px"}>
               {label}
             </Typography>
-            <Typography fontSize={"14px"}>{text}</Typography>
+            <Typography fontSize={"14px"} textAlign={"justify"}>
+              {text}
+            </Typography>
           </Box>
         </Box>
       </Box>

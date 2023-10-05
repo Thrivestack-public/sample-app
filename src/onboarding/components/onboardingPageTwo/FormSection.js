@@ -89,36 +89,6 @@ const styles = (theme) => ({
 function FormSection(props) {
   const { classes, theme } = props;
 
-  const [metadata, setMetadata] = useState({
-    userId: "",
-    workflowId: "",
-    runtimeId: "",
-    returnUrl: "",
-    env: "",
-  });
-
-  useEffect(() => {
-    // Check if metadata is in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const metadataFromUrl = {
-      userId: urlParams.get("userId"),
-      workflowId: urlParams.get("workflowId"),
-      runtimeId: urlParams.get("runtimeId"),
-      returnUrl: urlParams.get("returnUrl"),
-      env: urlParams.get("env"),
-    };
-    setMetadata(metadataFromUrl);
-    localStorage.setItem(
-      "userMetaData",
-      JSON.stringify({
-        userId: metadataFromUrl.userId,
-        workflowId: metadataFromUrl.workflowId,
-        runtimeId: metadataFromUrl.runtimeId,
-        env: metadataFromUrl.env,
-      })
-    );
-  }, []);
-
   return (
     <div className={classNames("lg-p-top", classes.wrapper)}>
       <div className={classNames("container-fluid", classes.container)}>
@@ -159,18 +129,16 @@ function FormSection(props) {
                     following steps -
                   </Typography>
                   <br />
+                  <br />
                   <Typography className={classes.stepText}>
                     Enrichment
                   </Typography>
-                  <br />
                   <Typography className={classes.stepText}>
                     Associate App Role
                   </Typography>
-                  <br />
                   <Typography className={classes.stepText}>
                     Associate App Pricing
                   </Typography>
-                  <br />
                   <Typography className={classes.stepText}>
                     Tenant Creation Request
                   </Typography>
@@ -181,7 +149,7 @@ function FormSection(props) {
                   <Typography className={classes.formTitle}>
                     Onboarding Form - Step 2
                   </Typography>
-                  <OrganizationOnboardingForm onboardingMetaData={metadata} />
+                  <OrganizationOnboardingForm />
                 </Box>
               </Box>
             </Box>

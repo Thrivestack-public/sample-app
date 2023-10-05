@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import { useHistory } from "react-router-dom";
+import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
 
 const styles = (theme) => ({
   formContainer: {
@@ -27,18 +28,8 @@ const styles = (theme) => ({
 });
 
 const OrganizationOnboardingForm = (props) => {
-  const { classes, onboardingMetaData } = props;
-  const initialFormData = {
-    orgName: "",
-    orgType: "",
-    industry: "",
-    employeeCount: "",
-    website: "",
-    contactName: "",
-    contactEmail: "",
-    phone: "",
-  };
-  const [formData, setFormData] = useState(initialFormData);
+  const { classes } = props;
+  const { formData, setFormData } = useOnboardingFormData();
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -79,13 +70,13 @@ const OrganizationOnboardingForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // setLoading(true);
-    // if (validateForm()) {
-    console.log(formData);
-    handleNavigation();
-    // }
-    // setLoading(false);
+    e.preventDefault();
+    setLoading(true);
+    if (validateForm()) {
+      console.log(formData);
+      handleNavigation();
+    }
+    setLoading(false);
   };
 
   return (

@@ -20,17 +20,19 @@ const styles = (theme) => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
-    gap: theme.spacing(4),
+    gap: theme.spacing(2),
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
     maxWidth: 400,
     margin: "auto",
   },
 });
 
 const OrganizationOnboardingForm = (props) => {
-  const { classes, onboardingMetaData } = props;
-  const { formData, setFormData, resetForm } = useOnboardingFormData();
+  const { classes } = props;
+  const { formData, setFormData, resetForm, onboardingMetaData } =
+    useOnboardingFormData();
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -90,13 +92,14 @@ const OrganizationOnboardingForm = (props) => {
           setShowSuccessMessage(true);
           setTimeout(() => {
             //need to get encoded URI from onboardingmetadata ui so tha i can decode and go to it.
+            // window.location.href = "http://localhost:3000/";
             window.location.href =
               onboardingMetaData.returnUrl +
               "&workflowId=" +
               onboardingMetaData.workflowId +
               "&runtimeId=" +
               onboardingMetaData.runtimeId;
-          }, 500);
+          }, 10000);
         } else {
           console.error("Submission failed");
           setErrorMessage("Submission failed! Try again.");
@@ -114,13 +117,43 @@ const OrganizationOnboardingForm = (props) => {
   if (showSuccessMessage) {
     return (
       <Box className={classes.formContainer}>
-        <Typography fontSize={["20px", "28px", "36px"]} fontWeight={600}>
-          SaaSBox Onboarding
+        <Typography
+          fontSize={["20px", "28px", "36px"]}
+          fontWeight={600}
+          color="#16A34A"
+        >
+          Congratulations! EndUser has successfully finished the onboarding
+          process!
         </Typography>
         <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-          This is the onboarding page of the SaaSBox - designed to illustrate
-          the seamless integration of <br /> ThriveStack's workflows with your
-          own application.
+          Upon the successful completion of onboarding by the end user, they
+          will be automatically redirected to the return URL. This redirection
+          allows ThriveStack to proceed with the subsequent steps in the signup
+          workflow.
+        </Typography>
+
+        <Typography
+          variant="p"
+          fontWeight={600}
+          fontSize={["12px", "14px", "16px"]}
+        >
+          Wait! You will be redirected soon!
+        </Typography>
+
+        <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
+          Return Url is as following -
+        </Typography>
+
+        <Typography
+          variant="p"
+          fontSize={["12px", "14px", "16px"]}
+          color="#2563EB"
+        >
+          {onboardingMetaData.returnUrl +
+            "&workflowId=" +
+            onboardingMetaData.workflowId +
+            "&runtimeId=" +
+            onboardingMetaData.runtimeId}
         </Typography>
       </Box>
     );
