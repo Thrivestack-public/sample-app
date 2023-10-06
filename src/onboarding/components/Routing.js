@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { Switch } from "react-router-dom";
 import PropsRoute from "../../shared/components/PropsRoute";
-import Home from "./home/Home";
 import useLocationBlocker from "../../shared/functions/useLocationBlocker";
 import OnboardingPageOne from "./onboardingPageOne/OnboardingPageOne";
 import OnboardingPageTwo from "./onboardingPageTwo/OnboardingPageTwo";
