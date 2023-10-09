@@ -28,12 +28,12 @@ function App() {
               <Route path="/onboarding">
                 <OnboardingComponent />
               </Route>
-              <Route path="/">
-                <TenantAdminComponent />
-              </Route>
               {/* This will be a private route once we start getting token from redirection */}
               <Route path="/home">
                 <DashboardComponent />
+              </Route>
+              <Route path="/">
+                <TenantAdminComponent />
               </Route>
             </Switch>
           </Suspense>

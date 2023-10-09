@@ -12,6 +12,7 @@ function TenantDashboard(props) {
         fontSize={["16px", "20px"]}
         fontWeight={500}
         my={2}
+        mt={10}
         textAlign={"center"}
       >
         Workflow Data
