@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
-import { onboardingApiUrl } from "../../../constants";
 import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
 
 const styles = (theme) => ({
@@ -78,38 +77,33 @@ const OrganizationOnboardingForm = (props) => {
     if (validateForm()) {
       console.log(formData);
       try {
-        const response = await fetch(`${onboardingApiUrl}/submit`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...formData, ...onboardingMetaData }),
-        });
-
-        if (response.ok) {
-          console.log("Data submitted successfully");
-          resetForm();
-          setShowSuccessMessage(true);
-          setTimeout(() => {
-            //need to get encoded URI from onboardingmetadata ui so tha i can decode and go to it.
-            // window.location.href = "http://localhost:3000/";
-            window.location.href =
-              onboardingMetaData.returnUrl +
-              "&workflowId=" +
-              onboardingMetaData.workflowId +
-              "&runtimeId=" +
-              onboardingMetaData.runtimeId;
-          }, 10000);
-        } else {
-          console.error("Submission failed");
-          setErrorMessage("Submission failed! Try again.");
-          setShowErrorMessage(true);
-        }
+        const data = {
+          ...formData,
+          ...onboardingMetaData,
+        };
+        await localStorage.setItem("onboardingData", JSON.stringify(data));
+        console.log("Data submitted successfully");
+        resetForm();
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          //need to get encoded URI from onboardingmetadata ui so tha i can decode and go to it.
+          // window.location.href = "http://localhost:3000/";
+          window.location.href =
+            onboardingMetaData.returnUrl +
+            "&workflowId=" +
+            onboardingMetaData.workflowId +
+            "&runtimeId=" +
+            onboardingMetaData.runtimeId;
+        }, 10000);
       } catch (error) {
         console.error("An error occurred", error);
         setErrorMessage("An error occurred", error);
         setShowErrorMessage(true);
       }
+    } else {
+      console.error("An error occurred");
+      setErrorMessage("An error occurred");
+      setShowErrorMessage(true);
     }
     setLoading(false);
   };

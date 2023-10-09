@@ -144,29 +144,29 @@ function WorkflowStatusArea(props) {
         },
       },
     },
-    {
-      step: "8. Notify End User",
-      status: "done",
-      text: "In the signup workflow, ThriveStack also communicated the successful account creation to the user through the email service provider specified in the Notify Node settings.",
-      data: {
-        data: {},
-      },
-    },
-    {
-      step: "9. Redirect End User",
-      status: "done",
-      text: "Towards the end, ThriveStack directed the user to the Saasbox application, specifically to the redirect URL configured by SaasBuilder within the Redirect Node settings of the signup workflow.",
-      data: {
-        data: {},
-      },
-    },
+    // {
+    //   step: "8. Notify End User",
+    //   status: "done",
+    //   text: "In the signup workflow, ThriveStack also communicated the successful account creation to the user through the email service provider specified in the Notify Node settings.",
+    //   data: {
+    //     data: {},
+    //   },
+    // },
+    // {
+    //   step: "9. Redirect End User",
+    //   status: "done",
+    //   text: "Towards the end, ThriveStack directed the user to the Saasbox application, specifically to the redirect URL configured by SaasBuilder within the Redirect Node settings of the signup workflow.",
+    //   data: {
+    //     data: {},
+    //   },
+    // },
   ];
 
   return (
     <div>
       <div className="container-fluid">
         <Box mb={4} textAlign={"center"}>
-          <img src="/favicon-192x192.png" alt="icon" height={100} width={100} />
+          {/* <img src="/favicon-192x192.png" alt="icon" height={100} width={100} />
           <Typography
             fontSize={["20px", "28px", "36px"]}
             fontWeight={600}
@@ -186,7 +186,7 @@ function WorkflowStatusArea(props) {
               data throughout the entire process, allowing you to access and
               view it.
             </Typography>
-          </Box>
+          </Box> */}
 
           <Box
             display={"flex"}

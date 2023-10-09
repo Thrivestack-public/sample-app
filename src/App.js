@@ -11,6 +11,9 @@ import Pace from "./shared/components/Pace";
 
 const DashboardComponent = lazy(() => import("./main/components/Main"));
 const OnboardingComponent = lazy(() => import("./onboarding/components/Main"));
+const TenantAdminComponent = lazy(() =>
+  import("./tenantDashboard/components/Main")
+);
 
 function App() {
   return (
@@ -25,8 +28,11 @@ function App() {
               <Route path="/onboarding">
                 <OnboardingComponent />
               </Route>
+              <Route path="/">
+                <TenantAdminComponent />
+              </Route>
               {/* This will be a private route once we start getting token from redirection */}
-              <Route path="">
+              <Route path="/home">
                 <DashboardComponent />
               </Route>
             </Switch>
