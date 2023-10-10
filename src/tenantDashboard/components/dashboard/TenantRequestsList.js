@@ -15,7 +15,6 @@ function TenantRequestsList(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("tenantCreationRequests", tenantCreationRequests);
     localStorage.setItem(
       "tenantCreationRequests",
       JSON.stringify(tenantCreationRequests)
@@ -47,8 +46,6 @@ function TenantRequestsList(props) {
     // const dataObject = JSON.parse(message?.Body);
     const dataObject = message;
 
-    console.log("message in send to dest", message);
-
     // Extract runtimeId and workflowId from the source message
     // const { runtimeWorkflowId, workflowId } = dataObject;
 
@@ -77,10 +74,7 @@ function TenantRequestsList(props) {
             item.runtimeWorkflowId !== message.runtimeWorkflowId
         )
       );
-      console.log("Message sent to destination queue:", newMessage);
-    } catch (err) {
-      console.error("Error sending message to destination queue:", err);
-    }
+    } catch (err) {}
   };
 
   const receiveAndProcessMessage = async () => {
@@ -97,12 +91,7 @@ function TenantRequestsList(props) {
         .receiveMessage(receiveMessageParams)
         .promise();
 
-      console.log("data", data);
-
       if (data.Messages) {
-        console.log("Message received===");
-        console.log(data.Messages);
-        console.log("Message received");
         const message = data.Messages[0];
 
         //load message and parse its body and save
@@ -121,7 +110,6 @@ function TenantRequestsList(props) {
       // Continue listening for new messages recursively
       receiveAndProcessMessage();
     } catch (err) {
-      console.error("Error receiving or processing message:", err);
       // Retry on error
       receiveAndProcessMessage();
     }
@@ -130,8 +118,6 @@ function TenantRequestsList(props) {
   useEffect(() => {
     // Start processing messages from the source queue when the component mounts
     receiveAndProcessMessage();
-
-    console.log("Hellooooo Started Tenant Creation Service");
   }, []);
 
   const onTenantRequestAccepted = async (message) => {

@@ -75,7 +75,6 @@ const OrganizationOnboardingForm = (props) => {
     e.preventDefault();
     setLoading(true);
     if (validateForm()) {
-      console.log(formData);
       try {
         const data = {
           ...formData,
@@ -83,11 +82,13 @@ const OrganizationOnboardingForm = (props) => {
         };
         await localStorage.setItem("onboardingData", JSON.stringify(data));
         console.log("Data submitted successfully");
+
         resetForm();
         setShowSuccessMessage(true);
+        localStorage.removeItem("userMetaData");
+
         setTimeout(() => {
           //need to get encoded URI from onboardingmetadata ui so tha i can decode and go to it.
-          // window.location.href = "http://localhost:3000/";
           window.location.href =
             onboardingMetaData.returnUrl +
             "&workflowId=" +

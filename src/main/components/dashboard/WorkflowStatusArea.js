@@ -6,7 +6,6 @@ import { withTheme } from "@mui/styles";
 import useWidth from "../../../shared/functions/useWidth";
 import WorkflowStatusCard from "./WorkflowStatusCard";
 import calculateSpacing from "./calculateSpacing";
-import { onboardingApiUrl, thriveDataApiUrl } from "../../../constants";
 import StepStatusCard from "../StepStatusCard/StepStatusCard";
 
 function WorkflowStatusArea(props) {
@@ -15,49 +14,17 @@ function WorkflowStatusArea(props) {
   const isWidthUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const [userData, setUserData] = useState({});
   const [userOnboardingData, setUserOnboardingData] = useState({});
-  const userMetaDataStr = localStorage.getItem("userMetaData");
-  const userMetaData = userMetaDataStr ? JSON.parse(userMetaDataStr) : {};
 
   const getUserData = async () => {
-    const res = await fetch(
-      // `${thriveDataApiUrl}?userId=${userMetaData.userId}&workflowId=${userMetaData.workflowId}`,
-      `https://4cx31huce2.execute-api.ap-south-1.amazonaws.com/?userId=hackhathon&workflowId=648b79b3-2d7b-4baf-81b6-c52215f52349`
-      // {
-      //   headers: {
-      //     authorization: localStorage.getItem("system_token"),
-      //   },
-      // }
-    )
-      // .then((res) => res.json())
-      .catch((error) => {
-        console.log("something went wrong");
-      });
-    console.log("data", res);
-    // const res = {};
-    const isOnboardingDataReceived = res && res.data && res.data.onboardingData;
-    if (!isOnboardingDataReceived) {
-      const onboardingRes = await fetch(
-        `${onboardingApiUrl}/getdata?userId=${userMetaData.userId}&workflowId=${userMetaData.workflowId}`,
-        {
-          headers: {
-            authorization: localStorage.getItem("system_token"),
-          },
-        }
-      )
-        .then((res) => res.json())
-        .catch((error) => {
-          console.log("something went wrong");
-        });
-      setUserOnboardingData(onboardingRes.data);
+    let data = localStorage.getItem("onboardingData");
+    data = JSON.parse("onboardingData");
+    if (data) {
+      setUserOnboardingData(data);
     }
-    console.log("response res", res);
-    // setUserData(res?.data);
   };
+
   useEffect(() => {
-    // if (userMetaData.userId && userMetaData.workflowId) {
-    console.log("getUserData");
     getUserData();
-    // }
   }, []);
 
   const data = [
@@ -66,9 +33,7 @@ function WorkflowStatusArea(props) {
       status: "done",
       text: "Thrivestack has done authentication through your authentication provider and securely stored the authentication token in cookies at the domain level.",
       data: {
-        data: {
-          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
-        },
+        data: {},
       },
     },
     {
@@ -83,23 +48,9 @@ function WorkflowStatusArea(props) {
       step: "3. Onboarding",
       status: "done",
       text: "Upon completing the user surge check, ThriveStack guided the end user to initiate the Saasbox onboarding process via the redirect URL configured by SaasBox (SaasBuilder) in the onboarding node settings in the workflow builder. After successfully onboarding the end user, Saasbox subsequently directs them back to the designated returnUrl.",
-      data: userData.onboardingData ||
-        userOnboardingData || {
-          data: {
-            orgName: "new gov org",
-            orgType: "government",
-            industry: "it",
-            employeeCount: "777",
-            website: "http://google.com",
-            contactName: "rushikesh",
-            contactEmail: "abc123@gmail.com",
-            phone: "8862037995",
-            userId: 10,
-            workflowId: "8eb25d05-1520-405a-9a72-81f5a336cab9",
-            runtimeId: "0e4686b4-539c-11ee-9824-4203d88b635a",
-            env: null,
-          },
-        },
+      data: userOnboardingData || {
+        data: {},
+      },
     },
     {
       step: "4. User Enrichment",
@@ -114,13 +65,7 @@ function WorkflowStatusArea(props) {
       status: "done",
       text: "ThriveStack has also allocated a default role and pricing based on the settings defined by SaasBox (SaasBuilder) in the Associate App Role and Associate App Pricing configurations.",
       data: userData.appRoleData || {
-        data: {
-          userId: 10,
-          userRole: "ADMIN",
-          userRoleId: "admin",
-          userPricing: "FREE",
-          userPricingId: "free",
-        },
+        data: {},
       },
     },
     {
@@ -136,30 +81,25 @@ function WorkflowStatusArea(props) {
       status: "done",
       text: "ThriveStack initiated a tenant creation request, retrieved the tenant information from the tenant acknowledgment queue, and securely stored it for further processing.",
       data: {
-        data: {
-          userId: 10,
-          workflowId: "8eb25d05-1520-405a-9a72-81f5a336cab9",
-          tenantId: "newTenantId34",
-          tenantName: "newTenant34",
-        },
+        data: {},
       },
     },
-    // {
-    //   step: "8. Notify End User",
-    //   status: "done",
-    //   text: "In the signup workflow, ThriveStack also communicated the successful account creation to the user through the email service provider specified in the Notify Node settings.",
-    //   data: {
-    //     data: {},
-    //   },
-    // },
-    // {
-    //   step: "9. Redirect End User",
-    //   status: "done",
-    //   text: "Towards the end, ThriveStack directed the user to the Saasbox application, specifically to the redirect URL configured by SaasBuilder within the Redirect Node settings of the signup workflow.",
-    //   data: {
-    //     data: {},
-    //   },
-    // },
+    {
+      step: "8. Notify End User",
+      status: "done",
+      text: "In the signup workflow, ThriveStack also communicated the successful account creation to the user through the email service provider specified in the Notify Node settings.",
+      data: {
+        data: {},
+      },
+    },
+    {
+      step: "9. Redirect End User",
+      status: "done",
+      text: "Towards the end, ThriveStack directed the user to the Saasbox application, specifically to the redirect URL configured by SaasBuilder within the Redirect Node settings of the signup workflow.",
+      data: {
+        data: {},
+      },
+    },
   ];
 
   return (
