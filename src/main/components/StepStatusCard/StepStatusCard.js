@@ -16,11 +16,20 @@ const styles = (theme) => ({
 });
 
 function StepStatusCard(props) {
-  const { classes, label, status, isShowButtonVisible, data, text } = props;
+  const {
+    classes,
+    label,
+    status,
+    isShowButtonVisible,
+    data,
+    text,
+    onDrawerOpen,
+  } = props;
 
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
 
   const openDrawer = () => {
+    if (onDrawerOpen) onDrawerOpen();
     setIsSideDrawerOpen(true);
   };
 
@@ -89,6 +98,7 @@ StepStatusCard.propTypes = {
   isShowButtonVisible: PropTypes.bool,
   data: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
+  onDrawerOpen: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(StepStatusCard);

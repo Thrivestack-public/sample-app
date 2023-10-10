@@ -1,7 +1,32 @@
-import React, { Fragment } from "react";
-import { Box, Typography } from "@mui/material";
+import React, { Fragment, useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import WorkflowDataDrawer from "./WorkflowDataDrawer";
+import WorkflowStatusCard from "./WorkflowStatusCard";
+import Cookies from "js-cookie";
+import StepStatusCard from "../StepStatusCard/StepStatusCard";
 
 function Dashboard(props) {
+  const [userData, setUserData] = useState({});
+
+  const [userOnboardingData, setUserOnboardingData] = useState({});
+
+  const onDrawerOpen = () => {
+    getUserData();
+  };
+
+  const getUserData = async () => {
+    let data = localStorage.getItem("onboardingData");
+    data = JSON.parse(data);
+    if (data) {
+      setUserOnboardingData(data);
+    }
+
+    let cookieData = Cookies.get("User_Data");
+    cookieData = cookieData ? JSON.parse(cookieData) : {};
+    console.log("cookieData", cookieData);
+    setUserData(cookieData);
+  };
+
   return (
     <Fragment>
       <Box mb={4} textAlign={"center"}>
@@ -20,6 +45,18 @@ function Dashboard(props) {
             have been executed, and we will have gathered and stored the data
             throughout the entire process, allowing you to access and view it.
           </Typography>
+        </Box>
+        <Box mt={4} maxWidth={"400px"} marginX={"auto"}>
+          <StepStatusCard
+            onDrawerOpen={onDrawerOpen}
+            label={"User Data"}
+            status={""}
+            isShowButtonVisible
+            data={{ data: userData }}
+            text={
+              "All user data collected during signup will be displayed here."
+            }
+          />
         </Box>
       </Box>
     </Fragment>
