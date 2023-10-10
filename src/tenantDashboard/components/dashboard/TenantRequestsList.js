@@ -12,9 +12,10 @@ function TenantRequestsList(props) {
     JSON.parse(localStorage.getItem("tenantCreationRequests")) || [];
   const [tenantCreationRequests, setTenantCreationRequests] =
     useState(pastData);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(tenantCreationRequests);
+    console.log("tenantCreationRequests", tenantCreationRequests);
     localStorage.setItem(
       "tenantCreationRequests",
       JSON.stringify(tenantCreationRequests)
@@ -46,7 +47,7 @@ function TenantRequestsList(props) {
     // const dataObject = JSON.parse(message?.Body);
     const dataObject = message;
 
-    console.log("message in send to dest", message.Body);
+    console.log("message in send to dest", message);
 
     // Extract runtimeId and workflowId from the source message
     // const { runtimeWorkflowId, workflowId } = dataObject;
@@ -72,8 +73,8 @@ function TenantRequestsList(props) {
       setTenantCreationRequests((prev) =>
         prev.filter(
           (item) =>
-            item.workflowId === message.workflowId &&
-            item.runtimeWorkflowId === message.runtimeWorkflowId
+            item.workflowId !== message.workflowId &&
+            item.runtimeWorkflowId !== message.runtimeWorkflowId
         )
       );
       console.log("Message sent to destination queue:", newMessage);
@@ -135,10 +136,12 @@ function TenantRequestsList(props) {
 
   const onTenantRequestAccepted = async (message) => {
     try {
+      setLoading(true);
       await processMessageAndSendToDestination(message);
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   };
 
   const onTenantRequestIgnore = (message) => {
@@ -213,6 +216,7 @@ function TenantRequestsList(props) {
                         variant="outlined"
                         size="small"
                         fullWidth
+                        disabled={loading}
                         onClick={() => onTenantRequestAccepted(element)}
                       >
                         Approve
@@ -221,6 +225,7 @@ function TenantRequestsList(props) {
                         variant="outlined"
                         size="small"
                         fullWidth
+                        disabled={loading}
                         onClick={() => onTenantRequestIgnore(element)}
                       >
                         Ignore
