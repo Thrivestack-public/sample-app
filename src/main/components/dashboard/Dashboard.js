@@ -52,7 +52,7 @@ function Dashboard(props) {
             label={"User Data"}
             status={""}
             isShowButtonVisible
-            data={{ data: userData }}
+            data={{ data: { ...userData, onboardingData: userOnboardingData } }}
             text={
               "All user data collected during signup will be displayed here."
             }
