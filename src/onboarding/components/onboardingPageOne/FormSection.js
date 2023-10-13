@@ -7,6 +7,10 @@ import OrganizationOnboardingForm from "./OnboardingForm";
 import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
 import WorkflowStatusCard from "../../../main/components/dashboard/WorkflowStatusCard";
 import StepStatusCard from "../../../main/components/StepStatusCard/StepStatusCard";
+import {
+  onboardingPageOneStepsData,
+  textConstants,
+} from "../../../textConstants";
 
 const styles = (theme) => ({
   card: {
@@ -99,18 +103,7 @@ function FormSection(props) {
       })
     );
   }, []);
-  const data = [
-    {
-      step: "1. Authentication Token",
-      status: "done",
-      text: "Thrivestack has done authentication through your authentication provider and securely stored the authentication token in cookies at the domain level.",
-    },
-    {
-      step: "2. User Surge Check",
-      status: "done",
-      text: "ThriveStack has reviewed the user limit that you configured within the waitlist user node settings.",
-    },
-  ];
+
   return (
     <div className={classNames("lg-p-top", classes.wrapper)}>
       <div className={classNames("container-fluid", classes.container)}>
@@ -137,18 +130,15 @@ function FormSection(props) {
                     fontSize={["20px", "28px", "36px"]}
                     fontWeight={600}
                   >
-                    SaaSBox Onboarding
+                    {textConstants.ONBOARDING_PAGE_ONE_TITLE}
                   </Typography>
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    This is the onboarding page of the SaaSBox - designed to
-                    illustrate the seamless integration of <br /> ThriveStack's
-                    workflows with your own application.
+                    {textConstants.ONBOARDING_PAGE_ONE_DESCRIPTION_ONE}
                   </Typography>
                   <br />
                   <br />
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    Behind the scene ThriveStack has already completed the
-                    following steps -
+                    {textConstants.ONBOARDING_PAGE_ONE_DESCRIPTION_TWO}
                   </Typography>
                   <Box
                     display={"flex"}
@@ -160,7 +150,7 @@ function FormSection(props) {
                     maxWidth={"600px"}
                     margin={"auto"}
                   >
-                    {data.map((element) => (
+                    {onboardingPageOneStepsData.map((element) => (
                       <StepStatusCard
                         label={element.step}
                         status={element.status}

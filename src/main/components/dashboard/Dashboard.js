@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import WorkflowDataDrawer from "./WorkflowDataDrawer";
-import WorkflowStatusCard from "./WorkflowStatusCard";
+import { Box, Typography } from "@mui/material";
 import Cookies from "js-cookie";
 import StepStatusCard from "../StepStatusCard/StepStatusCard";
+import { textConstants } from "../../../textConstants";
 
 function Dashboard(props) {
   const [userData, setUserData] = useState({});
@@ -32,30 +31,24 @@ function Dashboard(props) {
       <Box mb={4} textAlign={"center"}>
         <img src="/favicon-192x192.png" alt="icon" height={100} width={100} />
         <Typography fontSize={["20px", "28px", "36px"]} fontWeight={600} mb={2}>
-          Welcome to SaaSBox Application Home
+          {textConstants.HOME_PAGE_TITLE}
         </Typography>
         <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-          This is the application home page of the SaaSBox - designed to
-          illustrate the seamless integration of <br /> ThriveStack's workflows
-          with your own application.
+          {textConstants.HOME_PAGE_DESC_ONE}
         </Typography>
         <Box mt={4} maxWidth={"600px"} marginX={"auto"}>
           <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-            Once the end user arrives on this page, all the necessary steps will
-            have been executed, and we will have gathered and stored the data
-            throughout the entire process, allowing you to access and view it.
+            {textConstants.HOME_PAGE_DESC_TWO}
           </Typography>
         </Box>
         <Box mt={4} maxWidth={"400px"} marginX={"auto"}>
           <StepStatusCard
             onDrawerOpen={onDrawerOpen}
-            label={"User Data"}
+            label={textConstants.HOME_PAGE_DATA_CARD_TITLE}
             status={""}
             isShowButtonVisible
             data={{ data: { ...userData, onboardingData: userOnboardingData } }}
-            text={
-              "All user data collected during signup will be displayed here."
-            }
+            text={textConstants.HOME_PAGE_DATA_CARD_TEXT}
           />
         </Box>
       </Box>

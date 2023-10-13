@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
+import { textConstants } from "../../../textConstants";
 
 const styles = (theme) => ({
   formContainer: {
@@ -117,14 +118,10 @@ const OrganizationOnboardingForm = (props) => {
           fontWeight={600}
           color="#16A34A"
         >
-          Congratulations! EndUser has successfully finished the onboarding
-          process!
+          {textConstants.ONBOARDING_PAGE_TWO_SUCCESS_TITLE}
         </Typography>
         <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-          Upon the successful completion of onboarding by the end user, they
-          will be automatically redirected to the return URL. This redirection
-          allows ThriveStack to proceed with the subsequent steps in the signup
-          workflow.
+          {textConstants.ONBOARDING_PAGE_TWO_SUCCESS_DESC_ONE}
         </Typography>
 
         <Typography
@@ -132,11 +129,11 @@ const OrganizationOnboardingForm = (props) => {
           fontWeight={600}
           fontSize={["12px", "14px", "16px"]}
         >
-          Wait! You will be redirected soon!
+          {textConstants.ONBOARDING_PAGE_TWO_SUCCESS_DESC_TWO}
         </Typography>
 
         <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-          Return Url is as following -
+          {textConstants.ONBOARDING_PAGE_TWO_SUCCESS_RETURN_URL}
         </Typography>
 
         <Typography

@@ -5,6 +5,7 @@ import { Grid, Typography, Card, Box, Divider } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
 import StepStatusCard from "../StepStatusCard/StepStatusCard";
+import { textConstants } from "../../../textConstants";
 
 const styles = (theme) => ({
   card: {
@@ -115,32 +116,29 @@ function FormSection(props) {
                     fontSize={["20px", "28px", "36px"]}
                     fontWeight={600}
                   >
-                    SaaSBox Onboarding
+                    {textConstants.ONBOARDING_PAGE_TWO_TITLE}
                   </Typography>
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    This is the onboarding page of the SaaSBox - designed to
-                    illustrate the seamless integration of <br /> ThriveStack's
-                    workflows with your own application.
+                    {textConstants.ONBOARDING_PAGE_TWO_DESCRIPTION_ONE}
                   </Typography>
                   <br />
                   <br />
                   <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    Once you submit ThriveStack will proceed to complete the
-                    following steps -
+                    {textConstants.ONBOARDING_PAGE_TWO_DESCRIPTION_TWO}
                   </Typography>
                   <br />
                   <br />
                   <Typography className={classes.stepText}>
-                    Enrichment
+                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_ONE}
                   </Typography>
                   <Typography className={classes.stepText}>
-                    Associate App Role
+                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_TWO}
                   </Typography>
                   <Typography className={classes.stepText}>
-                    Associate App Pricing
+                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_THREE}
                   </Typography>
                   <Typography className={classes.stepText}>
-                    Tenant Creation Request
+                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_FOUR}
                   </Typography>
                 </Box>
                 <Divider />

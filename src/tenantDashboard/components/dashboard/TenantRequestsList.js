@@ -4,6 +4,7 @@ import { withTheme } from "@mui/styles";
 import AWS from "aws-sdk";
 import useWidth from "../../../shared/functions/useWidth";
 import calculateSpacing from "./calculateSpacing";
+import { textConstants } from "../../../textConstants";
 
 function TenantRequestsList(props) {
   const { theme } = props;
@@ -150,11 +151,10 @@ function TenantRequestsList(props) {
             fontWeight={600}
             mb={2}
           >
-            Welcome to SaaSBox Tenant Dashboard
+            {textConstants.TENANT_LIST_PAGE_TITLE}
           </Typography>
           <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-            This is the application tenant dashboard page of the SaaSBox -
-            designed to show how tenant requests are working.
+            {textConstants.TENANT_LIST_PAGE_DESC}
           </Typography>
 
           <Box
