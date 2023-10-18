@@ -24,9 +24,9 @@ export const textConstants = {
   // "Please wait! End user will be redirected shortly.",
   ONBOARDING_PAGE_TWO_SUCCESS_RETURN_URL: "The return URL is as follows:",
 
-  HOME_PAGE_TITLE: "Welcome to SaaSBox Application Home",
+  HOME_PAGE_TITLE: "Welcome to SaaSBox's End-user Home Page",
   HOME_PAGE_DESC_ONE:
-    "This is the application home page of the SaaSBox - designed to illustrate the seamless integration of ThriveStack's workflows with your own application.",
+    "This is the landing page for SaaSBox's end-users, who are redirected here from the ThriveStack system after creating their tenant.",
   HOME_PAGE_DESC_TWO:
     "Once the end user arrives on this page, all the necessary steps will have been executed, and we will have gathered and stored the data throughout the entire process, allowing you to access and view it.",
   HOME_PAGE_DATA_CARD_TITLE: "User Data",

@@ -146,6 +146,11 @@ function TenantRequestsList(props) {
     );
   };
 
+  const keyNamesObj = {
+    runtimeWorkflowId: "Workflow Runtime Id",
+    workflowId: "Workflow Designtime Id",
+  };
+
   return (
     <div>
       <div className="container-fluid">
@@ -268,7 +273,13 @@ function TenantRequestsList(props) {
                           {Object.keys(element).map((keyName) => {
                             return (
                               <Typography variant="body1" paragraph>
-                                <b>{keyName}:</b> {element[keyName]}
+                                <b>
+                                  {keyNamesObj[keyName]
+                                    ? keyNamesObj[keyName]
+                                    : keyName}
+                                  :
+                                </b>{" "}
+                                {element[keyName]}
                               </Typography>
                             );
                           })}
