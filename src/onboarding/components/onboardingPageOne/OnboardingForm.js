@@ -102,10 +102,18 @@ const OrganizationOnboardingForm = (props) => {
             error={!!errors.orgType}
             fullWidth
           >
-            <MenuItem value="corporation">Corporation</MenuItem>
-            <MenuItem value="startup">Startup</MenuItem>
-            <MenuItem value="nonprofit">Nonprofit</MenuItem>
-            <MenuItem value="government">Government</MenuItem>
+            <MenuItem value="Business Organization">
+              Business Organization
+            </MenuItem>
+            <MenuItem value="Educational Institution">
+              Educational Institution
+            </MenuItem>
+            <MenuItem value="Nonprofit Organization">
+              Nonprofit Organization
+            </MenuItem>
+            <MenuItem value="Government Organization">
+              Government Organization
+            </MenuItem>
           </Select>
         </FormControl>
         <FormControl fullWidth>
@@ -118,23 +126,23 @@ const OrganizationOnboardingForm = (props) => {
             error={!!errors.industry}
             fullWidth
           >
-            <MenuItem value="it">Information Technology</MenuItem>
-            <MenuItem value="healthcare">Healthcare</MenuItem>
-            <MenuItem value="finance">Finance</MenuItem>
-            <MenuItem value="education">Education</MenuItem>
+            <MenuItem value="Cloud Computing">Cloud Computing</MenuItem>
+            <MenuItem value="Data Analytics">
+              Data Analytics and Business Intelligence
+            </MenuItem>
+            <MenuItem value="Financial Technology">
+              Financial Technology
+            </MenuItem>
+            <MenuItem value="Healthcare IT">Healthcare IT</MenuItem>
+            <MenuItem value="Education Technology (EdTech)">
+              Education Technology (EdTech)
+            </MenuItem>
+            <MenuItem value="Artificial Intelligence">
+              Artificial Intelligence
+            </MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
           </Select>
         </FormControl>
-        <TextField
-          label="Number of Employees"
-          name="employeeCount"
-          type="number"
-          value={formData.employeeCount}
-          onChange={handleInputChange}
-          error={!!errors.employeeCount}
-          helperText={errors.employeeCount}
-          required
-          fullWidth
-        />
 
         <Button
           type="submit"

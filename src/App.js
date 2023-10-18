@@ -32,8 +32,11 @@ function App() {
               <Route path="/home">
                 <DashboardComponent />
               </Route>
-              <Route path="/">
+              <Route path="/admin">
                 <TenantAdminComponent />
+              </Route>
+              <Route path="/">
+                <DashboardComponent />
               </Route>
             </Switch>
           </Suspense>

@@ -4,8 +4,11 @@ import classNames from "classnames";
 import { Grid, Typography, Card, Box, Divider } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
-import StepStatusCard from "../StepStatusCard/StepStatusCard";
-import { textConstants } from "../../../textConstants";
+import StepStatusCard from "../../../main/components/StepStatusCard/StepStatusCard";
+import {
+  onboardingPageTwoStepsData,
+  textConstants,
+} from "../../../textConstants";
 
 const styles = (theme) => ({
   card: {
@@ -79,12 +82,6 @@ const styles = (theme) => ({
     padding: "8px 16px",
     margin: "24px",
   },
-  formTitle: {
-    fontWeight: 600,
-    fontSize: "24px",
-    textAlign: "center",
-    marginBottom: "12px",
-  },
 });
 
 function FormSection(props) {
@@ -123,30 +120,39 @@ function FormSection(props) {
                   </Typography>
                   <br />
                   <br />
-                  <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
+                  <Typography
+                    variant="p"
+                    fontWeight={500}
+                    fontSize={["14px", "16px", "18px"]}
+                  >
                     {textConstants.ONBOARDING_PAGE_TWO_DESCRIPTION_TWO}
                   </Typography>
-                  <br />
-                  <br />
-                  <Typography className={classes.stepText}>
-                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_ONE}
-                  </Typography>
-                  <Typography className={classes.stepText}>
-                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_TWO}
-                  </Typography>
-                  <Typography className={classes.stepText}>
-                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_THREE}
-                  </Typography>
-                  <Typography className={classes.stepText}>
-                    {textConstants.ONBOARDING_PAGE_TWO_LIST_ITEM_FOUR}
-                  </Typography>
+                  <Box
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    flexDirection={"column"}
+                    gap={2}
+                    p={4}
+                    pt={2}
+                    maxWidth={"600px"}
+                    margin={"auto"}
+                  >
+                    {onboardingPageTwoStepsData.map((element) => (
+                      <StepStatusCard
+                        label={element.step}
+                        status={element.status}
+                        isShowButtonVisible={false}
+                        // isStatusVisible
+                        data={element.data}
+                        text={element.text}
+                      />
+                    ))}
+                  </Box>
                 </Box>
                 <Divider />
 
                 <Box mt={2}>
-                  <Typography className={classes.formTitle}>
-                    Onboarding Form - Step 2
-                  </Typography>
                   <OrganizationOnboardingForm />
                 </Box>
               </Box>

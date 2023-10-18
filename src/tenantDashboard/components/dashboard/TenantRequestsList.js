@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Paper,
+  TableContainer,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { withTheme } from "@mui/styles";
 import AWS from "aws-sdk";
 import useWidth from "../../../shared/functions/useWidth";
@@ -9,18 +18,21 @@ import { textConstants } from "../../../textConstants";
 function TenantRequestsList(props) {
   const { theme } = props;
   const width = useWidth();
-  const pastData =
-    JSON.parse(localStorage.getItem("tenantCreationRequests")) || [];
+  const pastData = [];
+  // JSON.parse(localStorage.getItem("tenantCreationRequests")) || [];
   const [tenantCreationRequests, setTenantCreationRequests] =
     useState(pastData);
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(false);
+  const [tenantName, setTenantName] = useState("");
+  const [tenantId, setTenantId] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem(
-      "tenantCreationRequests",
-      JSON.stringify(tenantCreationRequests)
-    );
-  }, [tenantCreationRequests]);
+  // useEffect(() => {
+  // localStorage.setItem(
+  //   "tenantCreationRequests",
+  //   JSON.stringify(tenantCreationRequests)
+  // );
+  // }, [tenantCreationRequests]);
 
   // Read AWS credentials for the source queue from environment variables
   const sourceQueueConfig = {
@@ -41,24 +53,23 @@ function TenantRequestsList(props) {
   const getRandomInt = (max) => {
     return Math.floor(Math.random() * max);
   };
+  const sourceSqs = new AWS.SQS(sourceQueueConfig);
+  const destinationSqs = new AWS.SQS(destinationQueueConfig);
 
   const processMessageAndSendToDestination = async (message) => {
     // Assuming the message is in JSON format
-    // const dataObject = JSON.parse(message?.Body);
-    const dataObject = message;
-
+    const dataObject = JSON.parse(message.Body);
+    // const dataObject = message;
     // Extract runtimeId and workflowId from the source message
     // const { runtimeWorkflowId, workflowId } = dataObject;
-
-    const destinationSqs = new AWS.SQS(destinationQueueConfig);
 
     // Add additional properties to the new message for the destination queue
     const num = getRandomInt(100);
     const newMessage = {
       runtimeWorkflowId: dataObject.runtimeWorkflowId,
       workflowId: dataObject.workflowId,
-      tenantName: "newTenant" + num,
-      tenantId: "newTenantId" + num,
+      tenantName: tenantId,
+      tenantId: tenantName,
     };
 
     const sendMessageParams = {
@@ -68,20 +79,27 @@ function TenantRequestsList(props) {
 
     try {
       await destinationSqs.sendMessage(sendMessageParams).promise();
+
+      // Delete the received message from the source queue after processing
+      await sourceSqs
+        .deleteMessage({
+          QueueUrl: sourceQueueConfig.sourceQueueUrl,
+          ReceiptHandle: message.ReceiptHandle,
+        })
+        .promise();
       setTenantCreationRequests((prev) =>
-        prev.filter(
-          (item) =>
-            item.workflowId !== message.workflowId &&
-            item.runtimeWorkflowId !== message.runtimeWorkflowId
-        )
+        prev.filter((item) => item.MessageId !== message.MessageId)
       );
-    } catch (err) {}
+      setTenantId("");
+      setTenantName("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const receiveAndProcessMessage = async () => {
-    const sourceSqs = new AWS.SQS(sourceQueueConfig);
-
     try {
+      setFetching(true);
       const receiveMessageParams = {
         QueueUrl: sourceQueueConfig.sourceQueueUrl,
         MaxNumberOfMessages: 1,
@@ -93,19 +111,9 @@ function TenantRequestsList(props) {
         .promise();
 
       if (data.Messages) {
-        const message = data.Messages[0];
-
-        //load message and parse its body and save
-        const jsonres = JSON.parse(message.Body);
-        setTenantCreationRequests((prev) => [...prev, jsonres]);
-
-        // Delete the received message from the source queue after processing
-        await sourceSqs
-          .deleteMessage({
-            QueueUrl: sourceQueueConfig.sourceQueueUrl,
-            ReceiptHandle: message.ReceiptHandle,
-          })
-          .promise();
+        const messageData = data.Messages;
+        // //load message and parse its body and save
+        setTenantCreationRequests(messageData);
       }
 
       // Continue listening for new messages recursively
@@ -114,6 +122,7 @@ function TenantRequestsList(props) {
       // Retry on error
       receiveAndProcessMessage();
     }
+    setFetching(false);
   };
 
   useEffect(() => {
@@ -133,11 +142,7 @@ function TenantRequestsList(props) {
 
   const onTenantRequestIgnore = (message) => {
     setTenantCreationRequests((prev) =>
-      prev.filter(
-        (item) =>
-          item.workflowId === message.workflowId &&
-          item.runtimeWorkflowId === message.runtimeWorkflowId
-      )
+      prev.filter((item) => item.MessageId === message.MessageId)
     );
   };
 
@@ -153,74 +158,200 @@ function TenantRequestsList(props) {
           >
             {textConstants.TENANT_LIST_PAGE_TITLE}
           </Typography>
-          <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
+          <Typography
+            variant="p"
+            display={"block"}
+            fontSize={["12px", "14px", "16px"]}
+          >
             {textConstants.TENANT_LIST_PAGE_DESC}
           </Typography>
-
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            flexDirection={"column"}
+            gap={2}
+            p={2}
+            textAlign={"left"}
+            maxWidth={"600px"}
+            margin={"auto"}
+            fontSize={["12px", "14px", "16px"]}
+          >
+            <Typography variant="p">
+              {textConstants.TENANT_LIST_PAGE_DESC_TWO}
+            </Typography>
+            <Typography variant="p">
+              {textConstants.TENANT_LIST_PAGE_DESC_L1}
+            </Typography>
+            <Typography variant="p">
+              {textConstants.TENANT_LIST_PAGE_DESC_L2}
+            </Typography>
+            <Typography variant="p">
+              {textConstants.TENANT_LIST_PAGE_DESC_L3}
+            </Typography>
+          </Box>
           <Box
             display={"flex"}
             justifyContent={"center"}
             alignItems={"center"}
             flexDirection={"column"}
             mt={4}
+            border={"1px solid #ccc"}
+            p={4}
+            borderRadius={4}
           >
             <Typography fontSize={["16px", "20px"]} fontWeight={500} mb={2}>
               Tenant Requests
             </Typography>
-            <Grid container spacing={calculateSpacing(width, theme)}>
-              {tenantCreationRequests.map((element) => (
-                <Grid
-                  item
-                  xs={12}
-                  data-aos="zoom-in-up"
-                  alignContent={"center"}
-                  justifyItems={"center"}
-                >
-                  <Box
-                    display={"flex"}
-                    width="100%"
-                    justifyContent="space-between"
-                    alignItems={"center"}
-                    flexDirection={"column"}
-                    gap={1}
-                    p={2}
-                    sx={{ border: "1px solid #aaa", borderRadius: 2 }}
-                  >
-                    <Typography variant="body1" paragraph>
-                      RuntimeId: {element.runtimeWorkflowId}
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                      WorkflowId: {element.workflowId}
-                    </Typography>
-                    <Box
-                      display={"flex"}
-                      justifyContent="space-between"
-                      alignItems={"center"}
-                      gap={2}
+            {fetching ? (
+              <Typography
+                variant="body1"
+                paragraph
+                fontWeight={600}
+                fontSize={"20px"}
+                color={"#bbb"}
+              >
+                ... Fetching ThriveStack Requests
+              </Typography>
+            ) : null}
+
+            {!tenantCreationRequests.length ? (
+              <Typography
+                variant="body1"
+                paragraph
+                fontWeight={600}
+                fontSize={"20px"}
+                color={"#bbb"}
+              >
+                No new tenant creation request received
+              </Typography>
+            ) : null}
+            <Box>
+              <Grid container spacing={calculateSpacing(width, theme)}>
+                {tenantCreationRequests.map((item) => {
+                  const element = JSON.parse(item.Body);
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      key={element.runtimeWorkflowId}
+                      data-aos="zoom-in-up"
+                      alignContent={"center"}
+                      justifyItems={"center"}
                     >
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        disabled={loading}
-                        onClick={() => onTenantRequestAccepted(element)}
+                      <Box
+                        display={"flex"}
+                        width="100%"
+                        justifyContent="space-between"
+                        alignItems={"center"}
+                        flexDirection={"column"}
+                        gap={1}
+                        p={2}
+                        sx={{ border: "1px solid #aaa", borderRadius: 2 }}
                       >
-                        Approve
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        disabled={loading}
-                        onClick={() => onTenantRequestIgnore(element)}
-                      >
-                        Ignore
-                      </Button>
-                    </Box>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+                        <Typography
+                          variant="body1"
+                          paragraph
+                          fontWeight={600}
+                          fontSize={"20px"}
+                        >
+                          Tenant Create Request from ThriveStack
+                        </Typography>
+                        <Typography variant="body1" paragraph>
+                          Tenant Payload Data
+                        </Typography>
+                        <Box
+                          display={"flex"}
+                          flexDirection={"column"}
+                          maxWidth={800}
+                          textAlign={"left"}
+                        >
+                          {Object.keys(element).map((keyName) => {
+                            return (
+                              <Typography variant="body1" paragraph>
+                                <b>{keyName}:</b> {element[keyName]}
+                              </Typography>
+                            );
+                          })}
+                        </Box>
+                        <Box
+                          width={"100%"}
+                          borderBottom={"1px solid #aaa"}
+                          mb={2}
+                        />
+                        <Typography variant="body1" paragraph>
+                          Acknowledge Request
+                        </Typography>
+                        <Box
+                          display={"flex"}
+                          flexDirection={"column"}
+                          maxWidth={400}
+                          width={"100%"}
+                          gap={2}
+                        >
+                          <TextField
+                            label="Tenant Id"
+                            name="tenantId"
+                            size="small"
+                            fullWidth
+                            value={tenantId}
+                            onChange={(e) => {
+                              setTenantId(e.target.value);
+                            }}
+                          />
+                          <TextField
+                            label="Tenant Name"
+                            name="tenantName"
+                            size="small"
+                            fullWidth
+                            value={tenantName}
+                            onChange={(e) => {
+                              setTenantName(e.target.value);
+                            }}
+                          />
+                        </Box>
+                        {(!tenantId.length || !tenantName.length) && (
+                          <Typography
+                            variant="body1"
+                            fontSize={"12px"}
+                            paragraph
+                          >
+                            Add tenant id and tenant name to acknowledge.
+                          </Typography>
+                        )}
+                        <Box
+                          display={"flex"}
+                          justifyContent="space-between"
+                          alignItems={"center"}
+                          my={4}
+                          gap={2}
+                          width={"100%"}
+                          maxWidth={600}
+                        >
+                          <Button
+                            variant="contained"
+                            size="small"
+                            fullWidth
+                            disabled={
+                              loading || !tenantId.length || !tenantName.length
+                            }
+                            onClick={() => onTenantRequestAccepted(item)}
+                          >
+                            Acknowledge Back to ThriveStack System
+                          </Button>
+                        </Box>
+                        <Typography variant="body1" paragraph>
+                          By clicking the 'Acknowledge' button above,
+                          SaasBuilder is confirming to the ThriveStack system
+                          that they have successfully created a tenant in their
+                          system and have sent an acknowledgment message to
+                          ThriveStack along with the tenant details.
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Box>
           </Box>
         </Box>
       </div>

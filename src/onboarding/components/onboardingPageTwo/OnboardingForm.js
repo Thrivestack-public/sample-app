@@ -27,6 +27,22 @@ const styles = (theme) => ({
     maxWidth: 400,
     margin: "auto",
   },
+  successContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing(2),
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    maxWidth: 800,
+    margin: "auto",
+  },
+  formTitle: {
+    fontWeight: 600,
+    fontSize: "24px",
+    textAlign: "center",
+    marginBottom: "12px",
+  },
 });
 
 const OrganizationOnboardingForm = (props) => {
@@ -110,12 +126,19 @@ const OrganizationOnboardingForm = (props) => {
     setLoading(false);
   };
 
-  if (showSuccessMessage) {
+  if (true) {
     return (
-      <Box className={classes.formContainer}>
+      <Box className={classes.successContainer}>
         <Typography
-          fontSize={["20px", "28px", "36px"]}
+          fontSize={["20px", "24px", "32px"]}
           fontWeight={600}
+          color="#16A34A"
+        >
+          Congratulations!
+        </Typography>
+        <Typography
+          fontSize={["16px", "20px", "24px"]}
+          fontWeight={500}
           color="#16A34A"
         >
           {textConstants.ONBOARDING_PAGE_TWO_SUCCESS_TITLE}
@@ -152,6 +175,9 @@ const OrganizationOnboardingForm = (props) => {
   }
   return (
     <form onSubmit={handleSubmit}>
+      <Typography className={classes.formTitle}>
+        Onboarding Form - Step 2
+      </Typography>
       <Box className={classes.formContainer}>
         <TextField
           label="Website"
@@ -192,7 +218,7 @@ const OrganizationOnboardingForm = (props) => {
           disabled={loading}
           loading={loading}
         >
-          Submit
+          Complete Onboarding
         </Button>
         {loading && <p>Wait, you will be redirected soon.</p>}
         <Box height={40} />

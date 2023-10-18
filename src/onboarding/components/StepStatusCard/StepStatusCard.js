@@ -25,12 +25,21 @@ function StepStatusCard(props) {
     >
       <Box display={"flex"}>
         <Box className="" display={"flex"} alignItems={"center"} gap="8px">
-          <img
-            src="/images/logged_in/checkImage.png"
-            height={40}
-            width={40}
-            alt={"check"}
-          />
+          {status === "done" ? (
+            <img
+              src="/images/logged_in/checkImage.png"
+              height={40}
+              width={40}
+              alt={"check"}
+            />
+          ) : (
+            <img
+              src="/images/logged_in/pendingImage.png"
+              height={40}
+              width={40}
+              alt={"pending"}
+            />
+          )}
           <Box
             className=""
             display={"flex"}

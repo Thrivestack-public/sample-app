@@ -8,7 +8,7 @@ function TenantDashboard(props) {
     <Fragment>
       <TenantRequestsList />
 
-      <Typography
+      {/* <Typography
         fontSize={["16px", "20px"]}
         fontWeight={500}
         my={2}
@@ -17,7 +17,7 @@ function TenantDashboard(props) {
       >
         Workflow Data
       </Typography>
-      <WorkflowStatusArea />
+      <WorkflowStatusArea /> */}
     </Fragment>
   );
 }

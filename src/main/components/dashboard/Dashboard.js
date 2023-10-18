@@ -6,11 +6,16 @@ import { textConstants } from "../../../textConstants";
 
 function Dashboard(props) {
   const [userData, setUserData] = useState({});
+  const [authData, setAuthData] = useState({});
 
   const [userOnboardingData, setUserOnboardingData] = useState({});
 
   const onDrawerOpen = () => {
     getUserData();
+  };
+
+  const onAuthDrawerOpen = () => {
+    getAuthData();
   };
 
   const getUserData = async () => {
@@ -22,8 +27,13 @@ function Dashboard(props) {
 
     let cookieData = Cookies.get("User_Data");
     cookieData = cookieData ? JSON.parse(cookieData) : {};
-    console.log("cookieData", cookieData);
     setUserData(cookieData);
+  };
+
+  const getAuthData = async () => {
+    let cookieData = Cookies.get("system_token");
+    cookieData = cookieData;
+    setAuthData({ "enduser-jwt-token": cookieData });
   };
 
   return (
@@ -41,14 +51,23 @@ function Dashboard(props) {
             {textConstants.HOME_PAGE_DESC_TWO}
           </Typography>
         </Box>
-        <Box mt={4} maxWidth={"400px"} marginX={"auto"}>
+        <Box mt={4} maxWidth={"400px"} gap={4} marginX={"auto"}>
           <StepStatusCard
             onDrawerOpen={onDrawerOpen}
             label={textConstants.HOME_PAGE_DATA_CARD_TITLE}
-            status={""}
+            status={"done"}
             isShowButtonVisible
             data={{ data: { ...userData, onboardingData: userOnboardingData } }}
             text={textConstants.HOME_PAGE_DATA_CARD_TEXT}
+          />
+          <Box m={2} />
+          <StepStatusCard
+            onDrawerOpen={onAuthDrawerOpen}
+            label={"Authentication Data"}
+            status={"done"}
+            isShowButtonVisible
+            data={{ data: authData }}
+            text={"End-user's session and cookie related data."}
           />
         </Box>
       </Box>

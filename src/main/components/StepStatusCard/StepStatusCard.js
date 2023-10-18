@@ -24,6 +24,7 @@ function StepStatusCard(props) {
     data,
     text,
     onDrawerOpen,
+    isStatusVisible = false,
   } = props;
 
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
@@ -46,12 +47,21 @@ function StepStatusCard(props) {
     >
       <Box display={"flex"}>
         <Box className="" display={"flex"} alignItems={"center"}>
-          <img
-            src="/images/logged_in/checkImage.png"
-            height={40}
-            width={40}
-            alt={"check"}
-          />
+          {status === "done" ? (
+            <img
+              src="/images/logged_in/checkImage.png"
+              height={40}
+              width={40}
+              alt={"check"}
+            />
+          ) : (
+            <img
+              src="/images/logged_in/pendingImage.png"
+              height={40}
+              width={40}
+              alt={"pending"}
+            />
+          )}
           <Box
             className=""
             display={"flex"}
@@ -63,6 +73,11 @@ function StepStatusCard(props) {
             <Typography fontWeight={500} fontSize={"20px"}>
               {label}
             </Typography>
+            {isStatusVisible ? (
+              <Typography fontSize={"14px"} my={1} fontWeight={500}>
+                {status}
+              </Typography>
+            ) : null}
             <Typography fontSize={"14px"} textAlign={"justify"}>
               {text}
             </Typography>
@@ -96,6 +111,7 @@ StepStatusCard.propTypes = {
   classes: PropTypes.object,
   theme: PropTypes.object,
   isShowButtonVisible: PropTypes.bool,
+  isStatusVisible: PropTypes.bool,
   data: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
   onDrawerOpen: PropTypes.string.isRequired,

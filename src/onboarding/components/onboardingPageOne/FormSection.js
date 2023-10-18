@@ -137,7 +137,11 @@ function FormSection(props) {
                   </Typography>
                   <br />
                   <br />
-                  <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
+                  <Typography
+                    variant="p"
+                    fontWeight={500}
+                    fontSize={["12px", "14px", "16px"]}
+                  >
                     {textConstants.ONBOARDING_PAGE_ONE_DESCRIPTION_TWO}
                   </Typography>
                   <Box
