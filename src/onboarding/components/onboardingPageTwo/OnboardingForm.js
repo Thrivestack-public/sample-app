@@ -126,7 +126,7 @@ const OrganizationOnboardingForm = (props) => {
     setLoading(false);
   };
 
-  if (true) {
+  if (showSuccessMessage) {
     return (
       <Box className={classes.successContainer}>
         <Typography
