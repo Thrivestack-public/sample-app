@@ -5,6 +5,7 @@ export const textConstants = {
   ONBOARDING_PAGE_ONE_DESCRIPTION_TWO:
     "Behind the scene ThriveStack has already completed the following steps -",
 
+    ONBOARDING_PAGE_ONE_STEP_ONE_HEADING: "It's a multi-step onboarding process. If a user drops off during this process, ThriveStack will work behind the scenes to capture the drop-off, enabling you to understand why users may not be able to complete it.",
   ONBOARDING_PAGE_TWO_TITLE: "SaaSBox Onboarding For End-user",
   ONBOARDING_PAGE_TWO_DESCRIPTION_ONE:
     "Imagine this page as your product's onboarding page, which your end-users see once their authentication is completed. Typically, you want your end-users to fill out the onboarding form, as shown below. You can enable this by simply configuring the onboarding page URL in Thrivestack's Workflow builder (Signup Workflow).",
@@ -33,16 +34,10 @@ export const textConstants = {
   HOME_PAGE_DATA_CARD_TEXT:
     "All user data collected during signup will be displayed here.",
 
-  TENANT_LIST_PAGE_TITLE: "Welcome to SaaSBox Admin Dashboard",
+  TENANT_LIST_PAGE_TITLE: "Welcome to SaaSBox tenant creation page",
   TENANT_LIST_PAGE_DESC:
-    "This is the admin page of SaaSBox (SaaSBuilder) for SaasBuilder actions and activities.",
-  TENANT_LIST_PAGE_DESC_TWO: "For example, you can use this page to:",
-  TENANT_LIST_PAGE_DESC_L1:
-    "1. Process tenant creation requests received from the ThriveStack system.",
-  TENANT_LIST_PAGE_DESC_L2:
-    "2. Send acknowledgments back to ThriveStack once a tenant is created.",
-  TENANT_LIST_PAGE_DESC_L3:
-    "3. Access end user and tenant information, and more.",
+    `This page serves as a simulation of your backend system's response to tenant creation requests originating from ThriveStack`,
+  TENANT_LIST_PAGE_DESC_TWO: `It's important to note that end-users won't have visibility of this page. This simulation provides an experience for testing your backend system.`,
 };
 
 export const signupStepsData = [

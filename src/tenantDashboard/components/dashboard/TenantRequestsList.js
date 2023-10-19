@@ -181,17 +181,9 @@ function TenantRequestsList(props) {
             margin={"auto"}
             fontSize={["12px", "14px", "16px"]}
           >
-            <Typography variant="p">
+            <Typography variant="p"  fontWeight={600}
+            fontSize={["12px", "14px", "16px"]}>
               {textConstants.TENANT_LIST_PAGE_DESC_TWO}
-            </Typography>
-            <Typography variant="p">
-              {textConstants.TENANT_LIST_PAGE_DESC_L1}
-            </Typography>
-            <Typography variant="p">
-              {textConstants.TENANT_LIST_PAGE_DESC_L2}
-            </Typography>
-            <Typography variant="p">
-              {textConstants.TENANT_LIST_PAGE_DESC_L3}
             </Typography>
           </Box>
           <Box

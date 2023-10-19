@@ -32,7 +32,7 @@ function App() {
               <Route path="/home">
                 <DashboardComponent />
               </Route>
-              <Route path="/admin">
+              <Route path="/tenant">
                 <TenantAdminComponent />
               </Route>
               <Route path="/">
