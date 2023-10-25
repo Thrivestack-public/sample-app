@@ -64,7 +64,7 @@ function TenantRequestsList(props) {
     // const { runtimeWorkflowId, workflowId } = dataObject;
 
     // Add additional properties to the new message for the destination queue
-    const num = getRandomInt(100);
+    // const num = getRandomInt(100);
     const newMessage = {
       runtimeWorkflowId: dataObject.runtimeWorkflowId,
       workflowId: dataObject.workflowId,
@@ -103,7 +103,7 @@ function TenantRequestsList(props) {
       const receiveMessageParams = {
         QueueUrl: sourceQueueConfig.sourceQueueUrl,
         MaxNumberOfMessages: 1,
-        WaitTimeSeconds: 20, // Long polling for new messages
+        WaitTimeSeconds: 5,
       };
 
       const data = await sourceSqs
@@ -113,21 +113,26 @@ function TenantRequestsList(props) {
       if (data.Messages) {
         const messageData = data.Messages;
         // //load message and parse its body and save
-        setTenantCreationRequests(messageData);
+        setTenantCreationRequests([...tenantCreationRequests, ...messageData]);
       }
 
       // Continue listening for new messages recursively
-      receiveAndProcessMessage();
+      // receiveAndProcessMessage();
     } catch (err) {
       // Retry on error
-      receiveAndProcessMessage();
+      // receiveAndProcessMessage();
     }
     setFetching(false);
   };
 
   useEffect(() => {
     // Start processing messages from the source queue when the component mounts
-    receiveAndProcessMessage();
+    // receiveAndProcessMessage();
+    const pollingInterval = setInterval(receiveAndProcessMessage, 10000);
+
+    return () => {
+      clearInterval(pollingInterval);
+    };
   }, []);
 
   const onTenantRequestAccepted = async (message) => {
@@ -181,8 +186,11 @@ function TenantRequestsList(props) {
             margin={"auto"}
             fontSize={["12px", "14px", "16px"]}
           >
-            <Typography variant="p"  fontWeight={600}
-            fontSize={["12px", "14px", "16px"]}>
+            <Typography
+              variant="p"
+              fontWeight={600}
+              fontSize={["12px", "14px", "16px"]}
+            >
               {textConstants.TENANT_LIST_PAGE_DESC_TWO}
             </Typography>
           </Box>
