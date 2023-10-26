@@ -168,17 +168,20 @@ function FormSection(props) {
 
                 <Divider />
 
-                <Box mt={4}  maxWidth={"600px"}
-                    justifyContent={"center"}
-                    alignItems={"center"} 
-                    margin={"auto"}>
+                <Box mt={4} maxWidth={"600px"} margin={"auto"}>
                   <Typography className={classes.formTitle}>
                     Onboarding Form - Step 1
                   </Typography>
-                  <Typography variant="p"  fontWeight={600} Width={"400px"}
-                      fontSize={["12px", "14px", "16px"]}>
+                  <Typography
+                    variant="p"
+                    fontWeight={600}
+                    Width={"400px"}
+                    fontSize={["12px", "14px", "16px"]}
+                    marginBottom={"16px"}
+                  >
                     {textConstants.ONBOARDING_PAGE_ONE_STEP_ONE_HEADING}
                   </Typography>
+                  <Box mt={4} />
                   <OrganizationOnboardingForm />
                 </Box>
               </Box>

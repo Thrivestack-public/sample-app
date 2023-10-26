@@ -5,7 +5,8 @@ export const textConstants = {
   ONBOARDING_PAGE_ONE_DESCRIPTION_TWO:
     "Behind the scene ThriveStack has already completed the following steps -",
 
-    ONBOARDING_PAGE_ONE_STEP_ONE_HEADING: "It's a multi-step onboarding process. If a user drops off during this process, ThriveStack will work behind the scenes to capture the drop-off, enabling you to understand why users may not be able to complete it.",
+  ONBOARDING_PAGE_ONE_STEP_ONE_HEADING:
+    "It's a multi-step onboarding process. If a user drops off during this process, ThriveStack will work behind the scenes to capture the drop-off, enabling you to understand why users may not be able to complete it.",
   ONBOARDING_PAGE_TWO_TITLE: "SaaSBox Onboarding For End-user",
   ONBOARDING_PAGE_TWO_DESCRIPTION_ONE:
     "Imagine this page as your product's onboarding page, which your end-users see once their authentication is completed. Typically, you want your end-users to fill out the onboarding form, as shown below. You can enable this by simply configuring the onboarding page URL in Thrivestack's Workflow builder (Signup Workflow).",
@@ -21,9 +22,12 @@ export const textConstants = {
   ONBOARDING_PAGE_TWO_SUCCESS_DESC_ONE:
     "Upon the successful completion of onboarding by the end user, you (Saasbuilder) need to redirect the end user to the return URL received from ThriveStack when redirected to the onboarding URL. This redirection enables ThriveStack to continue with the subsequent steps in the signup workflow.",
   ONBOARDING_PAGE_TWO_SUCCESS_DESC_TWO:
-    "As a SaaS builder, your responsibility is to redirect the end user to the return URL once they have completed the onboarding process. We are simulating this process through auto-redirection, and you will be redirected to the following return URL shortly.",
+    "As a SaaS builder, your responsibility is to redirect the end user back to ThriveStack system using the return URL once they have completed the onboarding process.",
   // "Please wait! End user will be redirected shortly.",
   ONBOARDING_PAGE_TWO_SUCCESS_RETURN_URL: "The return URL is as follows:",
+  ONBOARDING_PAGE_TWO_RETURN_BTN_TEXT: "Redirect back to ThriveStack",
+  ONBOARDING_PAGE_TWO_RETURN_DESCRIPTION:
+    "Clicking on the button above will simulate the automatic redirection from SaaSBuilder's onboarding to the ThriveStack system, which will occur automatically once the onboarding is complete.",
 
   HOME_PAGE_TITLE: "Welcome to SaaSBox's End-user Home Page",
   HOME_PAGE_DESC_ONE:
@@ -35,8 +39,7 @@ export const textConstants = {
     "All user data collected during signup will be displayed here.",
 
   TENANT_LIST_PAGE_TITLE: "Welcome to SaaSBox tenant creation page",
-  TENANT_LIST_PAGE_DESC:
-    `This page serves as a simulation of your backend system's response to tenant creation requests originating from ThriveStack`,
+  TENANT_LIST_PAGE_DESC: `This page serves as a simulation of your backend system's response to tenant creation requests originating from ThriveStack`,
   TENANT_LIST_PAGE_DESC_TWO: `It's important to note that end-users won't have visibility of this page. This simulation provides an experience for testing your backend system.`,
 };
 
