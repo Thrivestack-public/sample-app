@@ -103,16 +103,6 @@ const OrganizationOnboardingForm = (props) => {
         resetForm();
         setShowSuccessMessage(true);
         localStorage.removeItem("userMetaData");
-
-        setTimeout(() => {
-          //need to get encoded URI from onboardingmetadata ui so tha i can decode and go to it.
-          window.location.href =
-            onboardingMetaData.returnUrl +
-            "&workflowId=" +
-            onboardingMetaData.workflowId +
-            "&runtimeId=" +
-            onboardingMetaData.runtimeId;
-        }, 10000);
       } catch (error) {
         console.error("An error occurred", error);
         setErrorMessage("An error occurred", error);
@@ -169,6 +159,22 @@ const OrganizationOnboardingForm = (props) => {
             onboardingMetaData.workflowId +
             "&runtimeId=" +
             onboardingMetaData.runtimeId}
+        </Typography>
+        <a
+          href={
+            onboardingMetaData.returnUrl +
+            "&workflowId=" +
+            onboardingMetaData.workflowId +
+            "&runtimeId=" +
+            onboardingMetaData.runtimeId
+          }
+        >
+          <Button variant="contained">
+            {textConstants.ONBOARDING_PAGE_TWO_RETURN_BTN_TEXT}
+          </Button>
+        </a>
+        <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
+          {textConstants.ONBOARDING_PAGE_TWO_RETURN_DESCRIPTION}
         </Typography>
       </Box>
     );
