@@ -64,8 +64,8 @@ function TenantRequestsList(props) {
     const newMessage = {
       workflowRuntimeId: dataObject.workflowRuntimeId,
       workflowDesignTimeId: dataObject.workflowDesignTimeId,
-      tenantName: tenantId,
-      tenantId: tenantName,
+      tenantName,
+      tenantId,
     };
 
     const sendMessageParams = {
