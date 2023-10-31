@@ -59,15 +59,11 @@ function TenantRequestsList(props) {
   const processMessageAndSendToDestination = async (message) => {
     // Assuming the message is in JSON format
     const dataObject = JSON.parse(message.Body);
-    // const dataObject = message;
-    // Extract runtimeId and workflowId from the source message
-    // const { runtimeWorkflowId, workflowId } = dataObject;
 
     // Add additional properties to the new message for the destination queue
-    // const num = getRandomInt(100);
     const newMessage = {
-      runtimeWorkflowId: dataObject.runtimeWorkflowId,
-      workflowId: dataObject.workflowId,
+      workflowRuntimeId: dataObject.workflowRuntimeId,
+      workflowDesignTimeId: dataObject.workflowDesignTimeId,
       tenantName: tenantId,
       tenantId: tenantName,
     };
@@ -113,7 +109,9 @@ function TenantRequestsList(props) {
       if (data.Messages) {
         const messageData = data.Messages;
         // //load message and parse its body and save
-        setTenantCreationRequests([...tenantCreationRequests, ...messageData]);
+        setTenantCreationRequests((prev) => {
+          return [...prev, ...messageData];
+        });
       }
 
       // Continue listening for new messages recursively
@@ -149,11 +147,6 @@ function TenantRequestsList(props) {
     setTenantCreationRequests((prev) =>
       prev.filter((item) => item.MessageId === message.MessageId)
     );
-  };
-
-  const keyNamesObj = {
-    runtimeWorkflowId: "Workflow Runtime Id",
-    workflowId: "Workflow Designtime Id",
   };
 
   return (
@@ -238,7 +231,7 @@ function TenantRequestsList(props) {
                     <Grid
                       item
                       xs={12}
-                      key={element.runtimeWorkflowId}
+                      key={element.workflowRuntimeId}
                       data-aos="zoom-in-up"
                       alignContent={"center"}
                       justifyItems={"center"}
@@ -273,13 +266,7 @@ function TenantRequestsList(props) {
                           {Object.keys(element).map((keyName) => {
                             return (
                               <Typography variant="body1" paragraph>
-                                <b>
-                                  {keyNamesObj[keyName]
-                                    ? keyNamesObj[keyName]
-                                    : keyName}
-                                  :
-                                </b>{" "}
-                                {element[keyName]}
+                                <b>{keyName}:</b> {element[keyName]}
                               </Typography>
                             );
                           })}
