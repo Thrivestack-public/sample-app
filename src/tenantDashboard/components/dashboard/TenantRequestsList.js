@@ -66,6 +66,7 @@ function TenantRequestsList(props) {
       workflowDesignTimeId: dataObject.workflowDesignTimeId,
       tenantName,
       tenantId,
+      emailId: dataObject.emailId,
     };
 
     const sendMessageParams = {
