@@ -32,7 +32,7 @@ function Main(props) {
 
   const selectDashboard = useCallback(() => {
     smoothScrollTop();
-    document.title = "SampleSaas - Dashboard";
+    document.title = "Acme Labs - Dashboard";
     setSelectedTab("Dashboard");
   }, [setSelectedTab]);
 
