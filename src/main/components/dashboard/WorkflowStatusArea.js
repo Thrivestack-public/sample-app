@@ -46,10 +46,10 @@ function WorkflowStatusArea(props) {
             fontWeight={600}
             mb={2}
           >
-            Welcome to SaaSBox Application
+            Welcome to Acme Labs Application
           </Typography>
           <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-            This is the application dashboard page of the SaaSBox - designed to
+            This is the application dashboard page of the Acme Labs - designed to
             illustrate the seamless integration of <br /> ThriveStack's
             workflows with your own application.
           </Typography>
