@@ -66,11 +66,15 @@ const styles = (theme) => ({
       maxWidth: "none !important",
     },
   },
+  cardTop: {
+    paddingTop: "67px !important"
+  },
   formTitle: {
-    fontWeight: 600,
+    fontWeight: 400,
     fontSize: "24px",
-    textAlign: "center",
+    textAlign: "left",
     marginBottom: "12px",
+    paddingLeft:'1vw'
   },
 });
 
@@ -105,91 +109,60 @@ function FormSection(props) {
   }, []);
 
   return (
-    <div className={classNames("lg-p-top", classes.wrapper)}>
+    <div className={classNames(classes.cardTop)}>
       <div className={classNames("container-fluid", classes.container)}>
-        <Box display="flex" justifyContent="center" className="row">
-          <Card
-            className={classes.card}
-            data-aos-delay="200"
-            data-aos="zoom-in"
-          >
+        <Box display="flex" justifyContent="space-evenly" className="row">
+
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            gap={"20px"}
+            width={"full"}
+          > 
             <Box
               display="flex"
+              flexDirection="column"
               justifyContent="space-between"
-              gap={"20px"}
-              width={"full"}
+              width="100%"
             >
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                width="100%"
+              
+              <Typography
+                variant="p"
+                fontWeight={500}
+                paddingBottom={"4vh"}
+                paddingTop={"0vh"}
+                fontSize={["12px", "14px", "x-large"]}
               >
-                <Box mb={4} textAlign={"center"}>
-                  <Typography
-                    fontSize={["20px", "28px", "36px"]}
-                    fontWeight={600}
-                  >
-                    {textConstants.ONBOARDING_PAGE_ONE_TITLE}
-                  </Typography>
-                  <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    {textConstants.ONBOARDING_PAGE_ONE_DESCRIPTION_ONE}
-                  </Typography>
-                  <br />
-                  <br />
-                  <Typography
-                    variant="p"
-                    fontWeight={500}
-                    fontSize={["12px", "14px", "16px"]}
-                  >
-                    {textConstants.ONBOARDING_PAGE_ONE_DESCRIPTION_TWO}
-                  </Typography>
-                  <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    flexDirection={"column"}
-                    gap={4}
-                    p={4}
-                    maxWidth={"600px"}
-                    margin={"auto"}
-                  >
-                    {onboardingPageOneStepsData.map((element) => (
-                      <StepStatusCard
-                        label={element.step}
-                        status={element.status}
-                        isShowButtonVisible={false}
-                        data={element.data}
-                        text={element.text}
-                      />
-                    ))}
-                  </Box>
-                </Box>
-
-                <Divider />
-
-                <Box mt={4} maxWidth={"600px"} margin={"auto"}>
-                  <Typography className={classes.formTitle}>
-                    Onboarding Form - Step 1
-                  </Typography>
-                  <Typography
-                    variant="p"
-                    fontWeight={600}
-                    Width={"400px"}
-                    fontSize={["12px", "14px", "16px"]}
-                    marginBottom={"16px"}
-                  >
-                    {textConstants.ONBOARDING_PAGE_ONE_STEP_ONE_HEADING}
-                  </Typography>
-                  <Box mt={4} />
-                  <OrganizationOnboardingForm />
-                </Box>
+                {textConstants.ONBOARDIG_PAGE_ONE_STEP_ONE_TITLE}
+              </Typography>
+           
+              <Card
+                className={classes.card}
+                data-aos-delay="200"
+                data-aos="zoom-in"
+              >
+              <Box mt={4} maxWidth={"600px"} margin={"auto"}>
+                <Typography className={classes.formTitle}>
+                  Onboarding - step 1
+                </Typography>
+                <Typography
+                  fontWeight={300}
+                  Width={"400px"}
+                  fontSize={["10px", "12px", "14px"]}
+                  marginBottom={"16px"}
+                  padding={"0px 16px"}
+                >
+                  {textConstants.ONBOARDING_PAGE_ONE_STEP_ONE_HEADING}
+                </Typography>
+                <Box mt={4} />
+                <OrganizationOnboardingForm />
               </Box>
-            </Box>
-          </Card>
+            </Card>
+          </Box>
         </Box>
-      </div>
+      </Box>
     </div>
+    </div >
   );
 }
 

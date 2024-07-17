@@ -9,7 +9,7 @@ import {
   onboardingPageTwoStepsData,
   textConstants,
 } from "../../../textConstants";
-
+                      
 const styles = (theme) => ({
   card: {
     boxShadow: theme.shadows[4],
@@ -18,6 +18,7 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
     minWidth: "60%",
+    width:"150%",
     [theme.breakpoints.up("sm")]: {
       paddingTop: theme.spacing(5),
       paddingBottom: theme.spacing(5),
@@ -58,6 +59,7 @@ const styles = (theme) => ({
     [theme.breakpoints.down("md")]: {
       marginBottom: theme.spacing(3),
     },
+    paddingLeft:'1vw'
   },
   stepText: {
     fontWeight: 500,
@@ -82,82 +84,54 @@ const styles = (theme) => ({
     padding: "8px 16px",
     margin: "24px",
   },
+  cardTop: {
+    paddingTop: "67px !important"
+  },
+  cardWidth: {
+    width:"50vw",
+  }
 });
 
 function FormSection(props) {
   const { classes, theme } = props;
 
   return (
-    <div className={classNames("lg-p-top", classes.wrapper)}>
+    <div className={classes.cardTop}>
       <div className={classNames("container-fluid", classes.container)}>
-        <Box display="flex" justifyContent="center" className="row">
-          <Card
-            className={classes.card}
-            data-aos-delay="200"
-            data-aos="zoom-in"
+        <Box display="flex" paddingLeft="1vw" className="row">
+
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            gap={"20px"}
+            width={"full"}
           >
             <Box
               display="flex"
+              flexDirection="column"
               justifyContent="space-between"
-              gap={"20px"}
-              width={"full"}
+              width="100%"
             >
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                width="100%"
+              <Typography
+                variant="p"
+                fontWeight={500}
+                paddingBottom={"4vh"}
+                paddingTop={"0vh"}
+                fontSize={["12px", "14px", "x-large"]}
               >
-                <Box mb={4} textAlign={"center"}>
-                  <Typography
-                    fontSize={["20px", "28px", "36px"]}
-                    fontWeight={600}
-                  >
-                    {textConstants.ONBOARDING_PAGE_TWO_TITLE}
-                  </Typography>
-                  <Typography variant="p" fontSize={["12px", "14px", "16px"]}>
-                    {textConstants.ONBOARDING_PAGE_TWO_DESCRIPTION_ONE}
-                  </Typography>
-                  <br />
-                  <br />
-                  <Typography
-                    variant="p"
-                    fontWeight={500}
-                    fontSize={["14px", "16px", "18px"]}
-                  >
-                    {textConstants.ONBOARDING_PAGE_TWO_DESCRIPTION_TWO}
-                  </Typography>
-                  <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    flexDirection={"column"}
-                    gap={2}
-                    p={4}
-                    pt={2}
-                    maxWidth={"600px"}
-                    margin={"auto"}
-                  >
-                    {onboardingPageTwoStepsData.map((element) => (
-                      <StepStatusCard
-                        label={element.step}
-                        status={element.status}
-                        isShowButtonVisible={false}
-                        // isStatusVisible
-                        data={element.data}
-                        text={element.text}
-                      />
-                    ))}
-                  </Box>
-                </Box>
-                <Divider />
-
+                {textConstants.ONBOARDIG_PAGE_ONE_STEP_ONE_TITLE}
+              </Typography>
+              <Card
+                className={[classes.card, classes.cardWidth]}
+                data-aos-delay="200"
+                data-aos="zoom-in"
+              >
                 <Box mt={2}>
                   <OrganizationOnboardingForm />
                 </Box>
-              </Box>
+              </Card>
             </Box>
-          </Card>
+          </Box>
         </Box>
       </div>
     </div>

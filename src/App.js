@@ -11,10 +11,8 @@ import Pace from "./shared/components/Pace";
 
 const DashboardComponent = lazy(() => import("./main/components/Main"));
 const OnboardingComponent = lazy(() => import("./onboarding/components/Main"));
-const TenantAdminComponent = lazy(() =>
-  import("./tenantDashboard/components/Main")
-);
-
+const TenantAdminComponent = lazy(() => import("./tenantDashboard/components/Main"));
+const SigUp = lazy(() => import("./SignUp/SigUp"));
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +23,9 @@ function App() {
           <Pace color={theme.palette.primary.light} />
           <Suspense fallback={<Fragment />}>
             <Switch>
+              <Route path="/signUp">
+                <SigUp />
+              </Route>
               <Route path="/onboarding">
                 <OnboardingComponent />
               </Route>
