@@ -32,7 +32,7 @@ const styles = (theme) => ({
 
 const OrganizationOnboardingForm = (props) => {
   const { classes } = props;
-  const { formData, setFormData, setCurrentPage, setPageStepCounter,setStepCompleted } = useOnboardingFormData();
+  const { formData, setFormData, setCurrentPage, setPageStepCounter } = useOnboardingFormData();
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);

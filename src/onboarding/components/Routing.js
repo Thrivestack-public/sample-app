@@ -10,7 +10,8 @@ function Routing(props) {
   return (
     <Switch>
       <PropsRoute path="/onboarding/pageTwo" component={OnboardingPageTwo} />
-      <PropsRoute path="/onboarding/boardingSection" component={boardingSection} />
+      <PropsRoute path="/on-boarding/tell-us-about-you" component={boardingSection}/>
+      <PropsRoute path="/on-boarding/final" component={boardingSection}/>
       <PropsRoute path="/" component={OnboardingPageOne} />
     </Switch>
   );

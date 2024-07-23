@@ -1,8 +1,9 @@
 import axios from 'axios';
+import {sharedDataApiBase, sharedDataApiEndpoint} from '../constants';
 
 // Function to fetch data using Axios
 async function fetchData(workflowRuntimeId, stepId) {
-    const url = `https://acme-labs.azurewebsites.net/api/sharedData?workflowRuntimeId=${workflowRuntimeId}&stepId=${stepId}`;
+    const url = `${sharedDataApiBase}/${sharedDataApiEndpoint}?workflowRuntimeId=${workflowRuntimeId}&stepId=${stepId}`;
 
     try {
         const response = await axios.get(url);

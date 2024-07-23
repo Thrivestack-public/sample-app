@@ -26,7 +26,7 @@ function App() {
               <Route path="/signUp">
                 <SigUp />
               </Route>
-              <Route path="/onboarding">
+              <Route path="/on-boarding">
                 <OnboardingComponent />
               </Route>
               {/* This will be a private route once we start getting token from redirection */}

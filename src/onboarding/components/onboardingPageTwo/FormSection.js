@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Typography, Card, Box, Divider } from "@mui/material";
+import { Typography, Card, Box } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
 import OrganizationOnboardingForm from "./OnboardingForm";
-import StepStatusCard from "../../../main/components/StepStatusCard/StepStatusCard";
 import {
-  onboardingPageTwoStepsData,
-  textConstants,
+  textConstants
 } from "../../../textConstants";
                       
 const styles = (theme) => ({

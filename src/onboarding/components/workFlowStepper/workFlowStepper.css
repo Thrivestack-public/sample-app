@@ -95,3 +95,10 @@
     display: block;
     height: 95%;
 }
+.step-link-color{
+    color: blue;
+}
+.stepper-link{
+    text-decoration:underline;
+    cursor: pointer
+}

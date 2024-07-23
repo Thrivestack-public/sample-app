@@ -1,0 +1,59 @@
+.conclusion-heading{
+   
+    padding: 13% 14%;
+    justify-content:center;
+}
+.conclusion-li-heading{
+    font-size:16px;
+    font-weight:400;
+}
+.archer-body{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.thrive-img{
+    height: 16px;
+    position: absolute;
+    display: inline-block;
+    margin-top: 30px;
+    left: 60px;
+}
+.acme-img{
+    position: absolute;
+    display: inline-block;
+    margin-top: 22px;
+    left: 265px;
+
+}
+.div-font{
+    
+    font-size: small;
+}
+.cardBg{
+    background-color: #F6F7FE;
+    text-align: center;
+    margin-top: 10%;
+    height: 25%;
+    width: 100%;
+    border-radius: 4%;
+    border: 1px solid #f1eded;
+}
+
+
+.card-header{
+font-size: 24px;
+font-weight: 700;
+line-height: 60px;
+text-align: center;
+
+}
+.card-subHeader{
+ 
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 21.6px;
+    text-align: center;
+
+}

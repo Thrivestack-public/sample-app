@@ -1,30 +1,52 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from 'react';
 import { Grid, Box } from '@mui/material';
 import OnboardingPageOne from '../onboardingPageOne/OnboardingPageOne';
 import OnboardingPageTwo from '../onboardingPageTwo/OnboardingPageTwo';
 import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
 import WorkFlowHeading from '../workFlowHeading/workFlowHeading';
 import WorkFlowStepper from '../workFlowStepper/workFlowStepper';
-function boardingSection(props) {
-  const {currentPage} = useOnboardingFormData();
+import Conclusion from '../conclusion/conclusion';
+import "./boardingSection.css";
+function boardingSection() {
+  const { currentPage } = useOnboardingFormData();
+  const { setReturnUrl, setRuntimeId, setWorkflowId } = useOnboardingFormData();
+
+  const params = new URLSearchParams(window.location.search);
+  const runtimeIdParam = params.get('runtimeId');
+  const workflowIdParam = params.get('workflowId');
+  const returnUrlParam = params.get('returnUrl');
+
+  if (runtimeIdParam) {
+    setRuntimeId(runtimeIdParam);
+  }
+
+  if (workflowIdParam) {
+    setWorkflowId(workflowIdParam);
+  }
+  if (returnUrlParam) {
+    const domainIndex = returnUrlParam.indexOf('://') + '://'.length;
+    const path = returnUrlParam.substring(domainIndex);
+    setReturnUrl(returnUrlParam);
+  }
   return (
     <Fragment>
-    <Box sx={{ flexGrow: 1, height: '100vh' }}>
-      <Grid container spacing={0} style={{ height: '100%', paddingTop:'2vh'}}>
-        <Grid item xs={6} style={{ display: 'flex', paddingTop:'12vh', paddingLeft:'1vw',backgroundColor:'#e2e8f040' }}>
-          <Box>
-            <WorkFlowHeading />
-            <WorkFlowStepper />
-          </Box>
+      <Box sx={{ flexGrow: 1, height: '100vh' }}>
+        <Grid container spacing={0} className='mainGrid-body'>
+          <Grid item xs={6} className='leftGrid-body'>
+            <Box>
+              <WorkFlowHeading />
+              <WorkFlowStepper />
+            </Box>
+          </Grid>
+          <Grid item xs={6} className='rightGrid-body'>
+            <Box>
+              {currentPage === 1 && <OnboardingPageOne />}
+              {currentPage === 2 && <OnboardingPageTwo />}
+            </Box>
+            {currentPage === 3 && <Conclusion />}
+          </Grid>
         </Grid>
-        <Grid item xs={6} style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'start'}}>
-          <Box>
-            { currentPage === 1 && <OnboardingPageOne /> }
-            { currentPage === 2 && <OnboardingPageTwo /> }
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
     </Fragment>
   );
 };

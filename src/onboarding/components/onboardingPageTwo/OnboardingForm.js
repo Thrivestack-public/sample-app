@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  TextField,
-  Select,
-  MenuItem,
-  Button,
-  FormControl,
-  InputLabel,
-  Box,
+  TextField, Button, Box,
   Snackbar,
   Alert,
-  Typography,
+  Typography
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
@@ -34,7 +28,7 @@ const styles = (theme) => ({
     justifyContent: "left",
     textAlign: "left",
     maxWidth: 800,
-   paddingTop: "0%",
+    paddingTop: "0%",
   },
   formTitle: {
     fontWeight: 600,
@@ -46,13 +40,13 @@ const styles = (theme) => ({
 
 const OrganizationOnboardingForm = (props) => {
   const { classes } = props;
-  const { formData, setFormData, resetForm, onboardingMetaData,setPageStepCounter,setStepCompleted } =
+  const { formData, setFormData, resetForm, onboardingMetaData, setPageStepCounter, setStepCompleted } =
     useOnboardingFormData();
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false
-    );
+  );
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -103,7 +97,7 @@ const OrganizationOnboardingForm = (props) => {
         resetForm();
         setShowSuccessMessage(true);
         setPageStepCounter(2);
-      
+
         localStorage.removeItem("userMetaData");
       } catch (error) {
         console.error("An error occurred", error);
@@ -120,9 +114,9 @@ const OrganizationOnboardingForm = (props) => {
 
   if (showSuccessMessage) {
     setPageStepCounter(3);
-    setStepCompleted(6)
+    setStepCompleted(5);
     return (
-    <>
+      <>
         <Box className={classes.successContainer}>
           <Typography
             fontSize={["20px", "24px", "32px"]}
@@ -137,7 +131,7 @@ const OrganizationOnboardingForm = (props) => {
           >
             {textConstants.ONBOARDING_PAGE_TWO_SUCCESS_TITLE}
           </Typography>
-       
+
 
           <Typography
             variant="p"
@@ -156,20 +150,20 @@ const OrganizationOnboardingForm = (props) => {
             <CopyTextField text={onboardingMetaData.returnUrl + "&workflowId=" + onboardingMetaData.workflowId + "&runtimeId=" +
               onboardingMetaData.runtimeId} />
           </Box>
-      
+
         </Box>
         <Box>
-        <a sx={{ marginTop: "5vh" }}
-          href={onboardingMetaData.returnUrl +
-            "&workflowId=" +
-            onboardingMetaData.workflowId +
-            "&runtimeId=" +
-            onboardingMetaData.runtimeId}
-        >
-          <Button variant="contained" sx={{ textTransform: 'none' }}>
-            {textConstants.ONBOARDING_PAGE_TWO_RETURN_BTN_TEXT}
-          </Button>
-        </a>
+          <a sx={{ marginTop: "5vh" }}
+            href={onboardingMetaData.returnUrl +
+              "&workflowId=" +
+              onboardingMetaData.workflowId +
+              "&runtimeId=" +
+              onboardingMetaData.runtimeId}
+          >
+            <Button variant="contained" sx={{ textTransform: 'none' }}>
+              {textConstants.ONBOARDING_PAGE_TWO_RETURN_BTN_TEXT}
+            </Button>
+          </a>
         </Box>
       </>
     );
