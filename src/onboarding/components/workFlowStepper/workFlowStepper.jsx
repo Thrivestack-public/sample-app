@@ -16,6 +16,9 @@ import PreviewModal from './previewModalComponent';
 import fetchData from '../../../Api/viewSharedData';
 import { useLocation } from 'react-router-dom';
 import './workFlowStepper.css';
+import validateAuthOTPData from '../../../Api/validateAuthOTPData'
+
+
 
 function workFlowStepper(props) {
 
@@ -24,6 +27,7 @@ function workFlowStepper(props) {
   const isFinalPage = currentPath.endsWith("/final");
   const queryParams = new URLSearchParams(location.search);
   const workflowRuntimeId = queryParams.get('runtimeId');
+  const authOTP = queryParams.get('authOTP');
   console.log("workflowRuntimeId", workflowRuntimeId);
 
   const { pageStepCounter, stepCompleted, setCurrentPage, setPageStepCounter, setStepCompleted } = useOnboardingFormData();
@@ -158,10 +162,21 @@ function workFlowStepper(props) {
   const [isPrevModalOpen, setIsPrevModalOpen] = useState(false);
   const closePrevModel = () => setIsPrevModalOpen(false);
 
+
   useEffect(async () => {
-    const apiResponse = await fetchData(workflowRuntimeId, stepId);
-    setViewSharedDataJson(apiResponse);
-  }, [stepId]);
+    if(authOTP){
+      const validateOTP = await validateAuthOTPData(authOTP || "")
+      setViewSharedDataJson(validateOTP);
+    }
+  }, [authOTP]);
+  
+  useEffect(async () => {
+    if(workflowRuntimeId ){
+      const apiResponse = await fetchData(workflowRuntimeId, stepId);
+      setViewSharedDataJson(apiResponse);
+    }
+    
+  }, [workflowRuntimeId,stepId]);
 
   return (
     <ArcherContainer strokeColor="#ccc" strokeWidth={1}>
