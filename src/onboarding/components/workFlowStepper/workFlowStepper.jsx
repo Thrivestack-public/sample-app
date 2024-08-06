@@ -30,6 +30,10 @@ function workFlowStepper(props) {
   const authOTP = queryParams.get('authOTP');
   console.log("workflowRuntimeId", workflowRuntimeId);
 
+  if(workflowRuntimeId && workflowRuntimeId!==""){
+    localStorage.setItem("workflowRuntimeId",workflowRuntimeId)
+  }
+
   const { pageStepCounter, stepCompleted, setCurrentPage, setPageStepCounter, setStepCompleted } = useOnboardingFormData();
   if (isFinalPage) {
     setCurrentPage(3);
@@ -171,12 +175,10 @@ function workFlowStepper(props) {
   }, [authOTP]);
   
   useEffect(async () => {
-    if(workflowRuntimeId ){
-      const apiResponse = await fetchData(workflowRuntimeId, stepId);
-      setViewSharedDataJson(apiResponse);
-    }
-    
-  }, [workflowRuntimeId,stepId]);
+      const wrId = localStorage.getItem("workflowRuntimeId") || ""
+      const apiResponse = await fetchData(wrId, stepId);
+      setViewSharedDataJson(apiResponse);  
+  }, [stepId]);
 
   return (
     <ArcherContainer strokeColor="#ccc" strokeWidth={1}>
