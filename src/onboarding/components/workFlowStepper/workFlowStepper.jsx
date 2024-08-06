@@ -167,18 +167,19 @@ function workFlowStepper(props) {
   const closePrevModel = () => setIsPrevModalOpen(false);
 
 
+
+  
   useEffect(async () => {
-    if(authOTP){
+    if(stepId ==="tenant_creation"){
+      const wrId = localStorage.getItem("workflowRuntimeId") || ""
+      const apiResponse = await fetchData(wrId, stepId);
+      setViewSharedDataJson(apiResponse);
+    }
+    if(stepId && stepId!=="" &&stepId !=="tenant_creation" && authOTP ){
       const validateOTP = await validateAuthOTPData(authOTP || "")
       setViewSharedDataJson(validateOTP);
     }
-  }, [authOTP]);
-  
-  useEffect(async () => {
-      const wrId = localStorage.getItem("workflowRuntimeId") || ""
-      const apiResponse = await fetchData(wrId, stepId);
-      setViewSharedDataJson(apiResponse);  
-  }, [stepId]);
+  }, [stepId,authOTP]);
 
   return (
     <ArcherContainer strokeColor="#ccc" strokeWidth={1}>
