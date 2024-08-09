@@ -10,6 +10,7 @@ import { Card, CardContent } from '@mui/material';
 import { textConstants } from "../../../textConstants";
 import { Grid } from '@mui/material';
 import { ArcherContainer, ArcherElement } from "react-archer";
+import jwtDecode from 'jwt-decode';
 import { useOnboardingFormData } from "../onboardingFormDataContext/onboardingFormDataContext";
 import JsonViewerModal from './modalComponent';
 import PreviewModal from './previewModalComponent';
@@ -177,6 +178,8 @@ function workFlowStepper(props) {
     }
     if(stepId && stepId!=="" &&stepId !=="tenant_creation" && authOTP ){
       const validateOTP = await validateAuthOTPData(authOTP || "")
+      const decoded = jwtDecode(validateOTP.token);
+      console.log("decoded token",decoded)
       setViewSharedDataJson(validateOTP);
     }
   }, [stepId,authOTP]);
