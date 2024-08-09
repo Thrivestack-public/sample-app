@@ -180,7 +180,8 @@ function workFlowStepper(props) {
       const validateOTP = await validateAuthOTPData(authOTP || "")
       const decoded = jwtDecode(validateOTP.token);
       console.log("decoded token",decoded)
-      setViewSharedDataJson(validateOTP);
+      localStorage.setItem("productId",decoded.tenantId)
+      setViewSharedDataJson(decoded);
     }
   }, [stepId,authOTP]);
 
