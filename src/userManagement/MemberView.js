@@ -8,6 +8,7 @@ import { Spin, Button as AntdButton, Select } from "antd";
 import Button from "./components/Button";
 import { Option } from "antd/es/mentions";
 import { load } from "js-yaml";
+import { Cookie } from "@mui/icons-material";
 
 export default function MemberView() {
     const [sortByStatus, setSortByStatus] = useState("");
@@ -92,7 +93,7 @@ export default function MemberView() {
                 const additionalResponse = await fetch(`https://api.dev.app.thrivestack.ai/api/user/roles`, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         AccountId: localStorage.getItem("productId"),
@@ -158,7 +159,8 @@ export default function MemberView() {
             const response = await fetch(`https://api.dev.app.thrivestack.ai/api/user/update`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("TSManagementToken")}`
                 },
                 body: JSON.stringify({
                     user_id: user.user_id,
