@@ -42,33 +42,40 @@ export default function Status({ email, status, invitationDate, blockOpen1, dele
     return (
         <div className="relative" ref={containerRef}>
             <button
-                className={
-                    isHover
-                        ? isOpened
-                            ? "w-[148px] p-3 border border-[#1238CE] rounded-lg relative bg-[#F8FAFC] text-start min-w-fit"
-                            : "w-[148px] p-3 border border-[#E2E8F0] rounded-lg relative bg-[#F8FAFC] text-start min-w-fit"
-                        : isOpened
-                            ? "w-[148px] p-3 border border-[#1238CE] rounded-lg relative bg-[#F8FAFC] text-start min-w-fit"
-                            : "w-[148px] p-3 border border-white rounded-lg relative text-start min-w-fit"
-                }
+                style={{
+                    width: "148px",
+                    padding: "12px",
+                    border: isHover || isOpened ? "1px solid #1238CE" : isHover ? "1px solid #E2E8F0" : "1px solid white",
+                    borderRadius: "8px",
+                    backgroundColor: "#F8FAFC",
+                    textAlign: "start",
+                    minWidth: "fit-content",
+                    position: "relative",
+                    cursor: "pointer",
+                }}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
                 onClick={toggleOpen}>
-                <div className="relative flex items-center gap-3">
-                    <div style={{ background: color }} className="w-[8px] h-[8px] rounded-full"></div>
+                <div style={{ position: "relative", display: "flex", alignItems: "center", gap: "12px" }}>
+                    <div style={{ backgroundColor: color, width: "8px", height: "8px", borderRadius: "50%" }}></div>
                     {status !== "Invited" && status !== "Invitation expired" ? (
-                        <span className="text-[#0F172A] text-[14px]">{status}</span>
+                        <span style={{ color: "#0F172A", fontSize: "14px" }}>{status}</span>
                     ) : null}
                     {status === "Invited" || status === "Invitation expired" ? (
-                        <div className="flex flex-col">
-                            <span className="text-[#0F172A] text-[14px]">{status}</span>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <span style={{ color: "#0F172A", fontSize: "14px" }}>{status}</span>
                             {!isHover && !isOpened && (
-                                <span className="text-[#334155] text-[10px]">{invitationDate}</span>
+                                <span style={{ color: "#334155", fontSize: "10px" }}>{invitationDate}</span>
                             )}
                         </div>
                     ) : null}
                     {isHover || isOpened ? (
-                        <div className={isOpened ? "absolute rotate-180 right-0" : "absolute right-0"}>
+                        <div
+                            style={{
+                                position: "absolute",
+                                right: "0",
+                                transform: isOpened ? "rotate(180deg)" : "rotate(0deg)",
+                            }}>
                             <svg
                                 width="10"
                                 height="6"
@@ -88,12 +95,31 @@ export default function Status({ email, status, invitationDate, blockOpen1, dele
                 </div>
             </button>
 
+
             {isOpened && status === "Active" ? (
                 <div
-                    style={{ boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)" }}
-                    className="absolute rounded-lg bg-white top-[55px] min-w-[178px] z-[2000] border border-[#E2E8F0]">
+                    style={{
+                        position: "absolute",
+                        top: "55px",
+                        minWidth: "178px",
+                        zIndex: 2000,
+                        backgroundColor: "#fff",
+                        borderRadius: "8px",
+                        border: "1px solid #E2E8F0",
+                        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+                    }}>
                     <div
-                        className="py-2 px-4 border-b border-[#E2E8F0] cursor-pointer flex items-center gap-[10px] "
+                        style={{
+                            padding: "8px 16px",
+                            borderBottom: "1px solid #E2E8F0",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            transition: "background-color 0.2s ease",
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f1f5f9")}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
                         onClick={() => {
                             setIsOpened(false);
                             deleteOpen1(true, email);
@@ -111,12 +137,20 @@ export default function Status({ email, status, invitationDate, blockOpen1, dele
                                 />
                             </svg>
                         </div>
-
-                        <div className="text-deepGray text-lg ">Delete member</div>
+                        <div style={{ color: "#64748B", fontSize: "16px" }}>Delete member</div>
                     </div>
 
                     <div
-                        className="py-2 px-4 cursor-pointer flex items-center gap-[10px] "
+                        style={{
+                            padding: "8px 16px",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            transition: "background-color 0.2s ease",
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f1f5f9")}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
                         onClick={() => {
                             setIsOpened(false);
                             blockOpen1(true, email);
@@ -134,11 +168,11 @@ export default function Status({ email, status, invitationDate, blockOpen1, dele
                                 />
                             </svg>
                         </div>
-
-                        <div className="text-deepGray text-lg ">Block member</div>
+                        <div style={{ color: "#64748B", fontSize: "16px" }}>Block member</div>
                     </div>
                 </div>
             ) : null}
+
 
             {isOpened && status === "Blocked" ? (
                 <div

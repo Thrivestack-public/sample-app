@@ -188,7 +188,7 @@ export default function MemberView() {
 
     return (
         <div style={{ width: "100%", height: "100%" }}>
-            <div style={{ display: "flex", flexDirection: "column", padding: "2.5rem", backgroundColor: "white", height: "100%", width: "100%" }}>
+            <div style={{ display: "flex", flexDirection: "column", padding: "5rem", backgroundColor: "white", height: "100%", width: "100%" }}>
                 <span style={{ color: "#0F172A" }}>Manage members and their roles</span>
 
                 <div style={{ width: "calc(100% - 150px)", marginTop: "1.25rem", display: "flex", alignItems: "center", gap: "2rem" }}>
@@ -224,7 +224,7 @@ export default function MemberView() {
                     </div>
                 </div>
 
-                <div style={{ width: "100%", marginTop: "1.75rem" }}>
+                <div style={{ width: "100%", marginTop: "1.75rem", height: "100%" }}>
                     <Spin spinning={loading} tip={"loading data..."}>
                         {data && data.length > 0 && roleData && !loading ? (
                             <MemberList
