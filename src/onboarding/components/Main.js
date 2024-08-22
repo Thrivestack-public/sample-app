@@ -20,10 +20,11 @@ const styles = (theme) => ({
 });
 
 function Main(props) {
-  const { classes } = props;
+  const { classes, isFinalPage } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
+  console.log(isFinalPage);
 
   const selectHome = useCallback(() => {
     smoothScrollTop();
@@ -46,6 +47,8 @@ function Main(props) {
   const handleCookieRulesDialogClose = useCallback(() => {
     setIsCookieRulesDialogOpen(false);
   }, [setIsCookieRulesDialogOpen]);
+  console.log("Selected Tab", selectedTab);
+  console.log("Selected home", selectHome);
 
   return (
     <div className={classes.wrapper}>

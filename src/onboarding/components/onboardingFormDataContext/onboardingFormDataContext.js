@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const onboardingFormDataContext = createContext({});
 
@@ -27,6 +27,12 @@ export const OnboardingFormDataContextProvider = ({ children }) => {
     setFormData(initialFormData);
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageStepCounter, setPageStepCounter] = useState(1);
+  const [stepCompleted, setStepCompleted] = useState(3);
+  const [runtimeId, setRuntimeId] = useState("");
+  const [workflowId, setWorkflowId] = useState("");
+  const [returnUrl, setReturnUrl] = useState("");
   return (
     <onboardingFormDataContext.Provider
       value={{
@@ -35,6 +41,18 @@ export const OnboardingFormDataContextProvider = ({ children }) => {
         resetForm,
         onboardingMetaData: metadata,
         setMetadata,
+        currentPage,
+        setCurrentPage,
+        pageStepCounter,
+        setPageStepCounter,
+        stepCompleted,
+        setStepCompleted,
+        runtimeId,
+        setRuntimeId,
+        workflowId,
+        setWorkflowId,
+        returnUrl,
+        setReturnUrl,
       }}
     >
       {children}

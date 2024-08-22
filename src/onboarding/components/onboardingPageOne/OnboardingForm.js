@@ -23,13 +23,16 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "center",
     maxWidth: 400,
-    margin: "auto",
+    marginLeft: "1vw",
+  },
+  buttonMarginBottom: {
+    marginBottom: theme.spacing(3),
   },
 });
 
 const OrganizationOnboardingForm = (props) => {
   const { classes } = props;
-  const { formData, setFormData } = useOnboardingFormData();
+  const { formData, setFormData, setCurrentPage, setPageStepCounter } = useOnboardingFormData();
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -74,7 +77,8 @@ const OrganizationOnboardingForm = (props) => {
     setLoading(true);
     if (validateForm()) {
       console.log(formData);
-      handleNavigation();
+      setCurrentPage(2);
+      setPageStepCounter(2);
     }
     setLoading(false);
   };
@@ -143,17 +147,18 @@ const OrganizationOnboardingForm = (props) => {
             <MenuItem value="Other">Other</MenuItem>
           </Select>
         </FormControl>
-
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={loading}
-          loading={loading}
-        >
-          Next
-        </Button>
-
+        <Box width="100%" display="flex" justifyContent="flex-start">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            loading={loading}
+            className={classes.buttonMarginBottom}
+          >
+            Next
+          </Button>
+        </Box>
         {/* Snackbar for error message */}
         <Snackbar
           open={showErrorMessage}

@@ -11,10 +11,9 @@ import Pace from "./shared/components/Pace";
 
 const DashboardComponent = lazy(() => import("./main/components/Main"));
 const OnboardingComponent = lazy(() => import("./onboarding/components/Main"));
-const TenantAdminComponent = lazy(() =>
-  import("./tenantDashboard/components/Main")
-);
-
+const UserManagement = lazy(() => import("./userManagement/Main"));
+const TenantAdminComponent = lazy(() => import("./tenantDashboard/components/Main"));
+const SigUp = lazy(() => import("./SignUp/SigUp"));
 function App() {
   return (
     <BrowserRouter>
@@ -25,8 +24,14 @@ function App() {
           <Pace color={theme.palette.primary.light} />
           <Suspense fallback={<Fragment />}>
             <Switch>
-              <Route path="/onboarding">
+              <Route path="/signUp">
+                <SigUp />
+              </Route>
+              <Route path="/on-boarding">
                 <OnboardingComponent />
+              </Route>
+              <Route path="/user-management">
+                <UserManagement />
               </Route>
               {/* This will be a private route once we start getting token from redirection */}
               <Route path="/home">

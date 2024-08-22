@@ -7,6 +7,7 @@ export const textConstants = {
 
   ONBOARDING_PAGE_ONE_STEP_ONE_HEADING:
     "It's a multi-step onboarding process. If a user drops off during this process, ThriveStack will work behind the scenes to capture the drop-off, enabling you to understand why users may not be able to complete it.",
+  ONBOARDIG_PAGE_ONE_STEP_ONE_TITLE: "SaaS Application Onboarding Page",
   ONBOARDING_PAGE_TWO_TITLE: "Acme Labs Onboarding For End-user",
   ONBOARDING_PAGE_TWO_DESCRIPTION_ONE:
     "Imagine this page as your product's onboarding page, which your end-users see once their authentication is completed. Typically, you want your end-users to fill out the onboarding form, as shown below. You can enable this by simply configuring the onboarding page URL in Thrivestack's Workflow builder (Signup Workflow).",
@@ -24,10 +25,13 @@ export const textConstants = {
   ONBOARDING_PAGE_TWO_SUCCESS_DESC_TWO:
     "As a SaaS builder, your responsibility is to redirect the end user back to ThriveStack system using the return URL once they have completed the onboarding process.",
   // "Please wait! End user will be redirected shortly.",
-  ONBOARDING_PAGE_TWO_SUCCESS_RETURN_URL: "The return URL is as follows:",
-  ONBOARDING_PAGE_TWO_RETURN_BTN_TEXT: "Redirect back to ThriveStack",
+  ONBOARDING_PAGE_TWO_SUCCESS_RETURN_URL: "Return URL is",
+  ONBOARDING_PAGE_TWO_RETURN_BTN_TEXT: "Simulate redirect back to ThriveStack",
   ONBOARDING_PAGE_TWO_RETURN_DESCRIPTION:
     "Clicking on the button above will simulate the automatic redirection from SaaSBuilder's onboarding to the ThriveStack system, which will occur automatically once the onboarding is complete.",
+  CONCLUSION_PAGE_VERIFY_TEXT1: "Welcome email received for the end user on john@acmelabs.com",
+  CONCLUSION_PAGE_VERIFY_TEXT2: "Email received for Acme GTM Team on john@acmelabs.com",
+  CONCLUSION_PAGE_VERIFY_DESC: "Thrivestack and Acme Labs self serve integration is complete",
 
   HOME_PAGE_TITLE: "Welcome to Acme Labs's Home Page",
   HOME_PAGE_DESC_ONE:
@@ -41,8 +45,25 @@ export const textConstants = {
   TENANT_LIST_PAGE_TITLE: "Welcome to Acme Labs tenant creation page",
   TENANT_LIST_PAGE_DESC: `This page serves as a simulation of your backend system's response to tenant creation requests originating from ThriveStack`,
   TENANT_LIST_PAGE_DESC_TWO: `It's important to note that end-users won't have visibility of this page. This simulation provides an experience for testing your backend system.`,
+
+  WORKFLOW_PAGE_TITLE: "How Thrivestack integrates with Yours SaaS (Acme Labs)",
+  WORKFLOW_PAGE_DESC: "Self-serve orchestration between your app and Thrivestack",
+  WORKFLOW_STEPPER_TITLE: "Thrivestack",
+  WORKFLOW_STEPPER_SUBTITLE: "*Works in the background",
+  WORKFLOW_STEPPER_TITLE_TWO: "Acme Labs",
+  SHARED_DATA_MODAL_TITLE: "Shared Data", // FOR MODAL
+  SHARED_DATA_MODAL_DESC: "Here’s a gathered and stored data through the entire process, allowing you to access and view it",
+  PREV_MODAL_TITLE: "Preview Email",
+  PREV_MODAL_DESC: "Here’s a preview of the email that was sent to the end user",
+  PREV_MODAL_TEXT: "Hi Team,",
+  PREV_MODAL_TEXT1: ' We\'re excited to let you know that your new tenant has been successfully provisioned! You can now start exploring and utilizing all the features.',
+  PREV_MODAL_TEXT2: ' If you have any questions or need assistance, feel free to reach out.'
 };
 
+export const signUpFormData = {
+  HEADLINE: "Welcome to Acme Labs!",
+  IMG_HEADLINE: "Acme Labs",
+}
 export const signupStepsData = [
   {
     step: "1. Authentication Token",
